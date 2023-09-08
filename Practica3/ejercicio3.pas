@@ -42,6 +42,10 @@ Procedure Informar();
             writeln('Ingrese la localidad');
             readln(e.localidad);
         end;
+        Function Relacion(cantA,cantD:integer):real;
+        begin
+            Relacion:=cantA/cantD;
+        end;
         Procedure Minimo(var cue1,cue2:integer; var nom1,nom2:cadena20; var min1,min2:real; cue:integer; nom:cadena20; prome:real);
         begin
             if( min1 > prome)then
@@ -69,7 +73,7 @@ begin
     for i:= 1 to DF do
     begin
         LeerEscuela(e);
-        aux:= e.cantA/e.cantD;
+        aux:= Relacion(e.cantA,e.cantD); 
         if (e.localidad = 'La Plata') and ( aux > PROME ) then cantLP:=cantLP+1;
         Minimo(cue1,cue2,nom1,nom2,min1,min2,e.CUE,e.nombreE,aux);
     end;
