@@ -69,7 +69,7 @@ var
   centro1,centro2:cadena6;
   cantUni,maxInves, max,minBec1, minBec2:integer;
 begin
-    max:=-1; minBec1:= MIN; minBec2:= MIN;centro1:=''; centro2:='';
+    max:=MAX; minBec1:= MIN; minBec2:= MIN;centro1:=''; centro2:='';
     LeerCentro(c);
     while(c.cantI <> FIN) do
     begin
