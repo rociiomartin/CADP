@@ -65,7 +65,7 @@ var
   i,codC:integer;
   montoTotal, cantTotalM,cantTotalMB :real;
 begin
-    for i:= 1 to 3 do
+    for i:= 1 to DF do
     begin
         CalcularMonto(cantTotalM,cantTotalMB,codC);
         montoTotal:=cantTotalMB+cantTotalM;
