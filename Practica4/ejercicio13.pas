@@ -24,7 +24,7 @@ b) El año con la mayor temperatura detectada en algún punto del planeta en los
 
 program ejercicio13;
 const
-    TEMP=5; DF=3;
+    TEMP=100; DF=50;
 type
     rango1=1..TEMP;
     rango2=1..DF;//en teoria seria 1973..2023
