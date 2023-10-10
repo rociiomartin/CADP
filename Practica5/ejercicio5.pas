@@ -14,7 +14,6 @@ program ejercicio5;
 const
     FIN=-1;
 type
-
     producto= record
                 cod:integer; //corte de control
                 desc:string[30];
