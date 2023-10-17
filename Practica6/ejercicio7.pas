@@ -46,19 +46,14 @@ type
            
 //PROCESOS
 procedure AgregarAdelante (var l:lista; s:sonda);
-    var
-       nuevo:lista;
-    Begin
-       new (nuevo);
-       nuevo^.datos:= s;
-       nuevo^.sig:=nil; 
-       if (l = nil) then l:= nuevo
-       else 
-       begin
-         nuevo^.sig:= l;
-         l:=nuevo;
-       end;
-    end;
+var
+  nuevo:lista;
+begin
+  new (nuevo);
+  nuevo^.datos:= s;
+  nuevo^.sig:=l; 
+  l:=nuevo;
+end;
     
 procedure CargarLista(var l : lista);
     
