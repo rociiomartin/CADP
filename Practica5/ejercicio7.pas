@@ -12,11 +12,12 @@ un programa que:
 
 a. Invoque un módulo que reciba la información de una sonda espacial, y retorne si cumple o no con los
 nuevos criterios H2020.
-
 b. Utilizando el módulo desarrollado en a) implemente un módulo que procese la lista de sondas de la ESA y
 retorne dos listados, uno con los proyectos que cumplen con los nuevos criterios y otro con aquellos que no
 los cumplen.
-
+c. Invoque a un módulo que reciba una lista de proyectos de sondas espaciales e informe la cantidad y el
+costo total (construcción y mantenimiento) de los proyectos que no serán financiados por H2020. Para ello,
+utilice el módulo realizado en b
 }
 
 
