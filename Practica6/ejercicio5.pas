@@ -47,19 +47,14 @@ procedure CargarLista(var l : lista);
             readln(p.precio);
         end;
     end;
-    procedure AgregarAdelante (var l:lista; p:producto);
+     procedure AgregarAdelante (var l:lista; s:sonda);
     var
-       nuevo:lista;
-    Begin
-       new (nuevo);
-       nuevo^.datos:= p;
-       nuevo^.sig:=nil; 
-       if (l = nil) then l:= nuevo
-       else 
-       begin
-         nuevo^.sig:= l;
-         l:=nuevo;
-       end;
+      nuevo:lista;
+    begin
+      new (nuevo);
+      nuevo^.datos:= s;
+      nuevo^.sig:=l; 
+      l:=nuevo;
     end;
 var
    p:producto;
