@@ -1,17 +1,7 @@
 {
-Una productora nacional realiza un casting de personas para la selección de actores extras de una
-nueva película, para ello se debe leer y almacenar la información de las personas que desean
-participar de dicho casting. De cada persona se lee: DNI, apellido y nombre, edad y el código de
-género de actuación que prefiere (1: drama, 2: romántico, 3: acción, 4: suspenso, 5: terror). La lectura
-finaliza cuando llega una persona con DNI 33555444, la cual debe procesarse.
 
-Una vez finalizada la lectura de todas las personas, se pide:
-a. Informar la cantidad de personas cuyo DNI contiene más dígitos pares que impares.
-b. Informar los dos códigos de género más elegidos.
-c. Realizar un módulo que reciba un DNI, lo busque y lo elimine de la estructura. El DNI puede no
-existir. Invocar dicho módulo en el programa principal.
-}
-{
+NO ESTA TERMINADO
+
 Una productora nacional realiza un casting de personas para la selección de actores extras de una
 nueva película, para ello se debe leer y almacenar la información de las personas que desean
 participar de dicho casting. De cada persona se lee: DNI, apellido y nombre, edad y el código de
@@ -27,33 +17,31 @@ existir. Invocar dicho módulo en el programa principal.
 
 program ejercicio2;
 const
-    FIN=1122;
-    DF=6;
+    FIN=33555444;
+    DF=5;
 type
-    cadena20=string[20];
+    cadena40=string[40];
     rango=1..DF;
-    cliente= record
-                cod:integer; //corte de control
-                dni:integer;
-                apellido:cadena20;
-                nombre:cadena20;
-                codP:rango;
-                monto:real
+    persona= record
+                dni:integer; //corte de control
+                nomApellido:cadena40;
+                edad:integer;
+                codG:rango;
               end;
     
     lista=  ^nodo;
     nodo = record 
-            datos:cliente;
+            datos:persona;
             sig:lista;
            end;
     
-    vectorPoliza = array [rango] of real; //se dispone    
+    vectorContador = array [rango] of real; //se dispone    
            
 //PROCESOS
 
 procedure CargarLista(var l : lista);
     
-    procedure LeerClientes(var c:cliente);
+    procedure LeerPersonas(var p:persona);
     begin
         writeln(' Ingrese el dni --FIN 345 -- ');
         readln(p.dni);
@@ -65,22 +53,22 @@ procedure CargarLista(var l : lista);
         readln(p.codP);
         writeln('------------------------------------------------');
     end;
-    procedure AgregarAdelante (var l:lista; c:cliente);
+    procedure AgregarAdelante (var l:lista; p:persona);
     var
       nuevo:lista;
     begin
       new (nuevo);
-      nuevo^.datos:= c;
+      nuevo^.datos:= p;
       nuevo^.sig:=l; 
       l:=nuevo;
     end;
 var
-   c:cliente;
+   p:persona;
 begin
     repeat
-        LeerClientes(c);
-        AgregarAdelante(l,c);
-    until c.cod = FIN
+        LeerPersonas(p);
+        AgregarAdelante(l,p);
+    until p.dni = FIN
 end;
 
 procedure RecorrerLista (l:lista; var v:vectorContador);
@@ -104,12 +92,19 @@ procedure RecorrerLista (l:lista; var v:vectorContador);
         for i:=1 to DF do v[i]:=0; 
     end;
 var
-
+    cant:integer;
 begin
-
+    cant:=0;
+    InicializarVector(v);
+    while (l <> nil ) do
+    begin
+    
+    end;
+    writeln ('la cantidad de personas cuyo DNI contiene más dígitos pares que impares: ', cant);
 end;
 
-procedure Maximo (dni,cant:integer; var cod1,cod2,max1,max2:integer);
+procedure ObtenerMaximo(v:vectorContador);
+    procedure Maximo (cod,cant:integer; var cod1,cod2,max1,max2:integer);
     begin
         if (cant > max1)then
         begin
@@ -125,9 +120,16 @@ procedure Maximo (dni,cant:integer; var cod1,cod2,max1,max2:integer);
                 cod2:=cod;
             end;
     end;
-procedure ObtenerMaximo(v:vectorContador);
-    
-procedure Eliminar (Var l: lista; cod:integer);
+var
+    cod1,cod2,max1.max2:integer;
+    i:rango;
+begin
+    max1:=-1; max2:=-1;
+    for i:= 1 to DF Maximo(i,v[i],cod1,cod2,max1.max2);
+    writeln(':' ,cod1,' ',cod2);
+end;
+
+procedure Eliminar (var l: lista; dni:integer);
 Var
  actual,ant:lista;
 
@@ -135,7 +137,7 @@ Begin
   actual:=l; 
   while (actual <> nil) do
   begin
-    if (actual^.datos.cod <> cod) then 
+    if (actual^.datos.dni <> dni) then 
     begin
         ant:=actual;  
         actual:= actual^.sig
@@ -152,13 +154,14 @@ End;
 
 //PP
 var
-    v:vectorPoliza;
+    v:vectorContador;
     l:lista;
     dni:integer;
 begin
     l:=nil;
     CargarLista(l);
     RecorrerLista(l,v);
+    ObtenerMaximo(v);
     writeln('Ingrese un dni a eliminar');readln(dni);
-    Eliminar(l,cod);
+    Eliminar(l,dni);
 end.
