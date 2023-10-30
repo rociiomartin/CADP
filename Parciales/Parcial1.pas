@@ -43,11 +43,7 @@ type
             apeAutor:cadena15;
            end;
     vector = array [rangoL] of libro;
-    lista=  ^nodo;
-    nodo = record 
-            datos:sonda;
-            sig:lista;
-           end;
+    
            
     venta=record
             codL:rangoL;
@@ -82,33 +78,38 @@ procedure CargarVector(var v:vector);
             readln(precio);
             writeln('Ingrese el apellido del autor');
             readln(apeAutor);
+            writeln('-------------------------------------------------')
         end;
     end;
 var
     l:libro;
     i:rangoL;
 begin
-    for i:=1 to 4 do //cambiar a 5000
+    for i:=1 to 3 do //cambiar a 5000
     begin
         LeerLibro(l);
         v[l.codL]:=l;
     end;
 end;
 
-{}
-procedure CargarLista(var l:lista); //se dispone 
+{se dispone
+procedure CargarLista(var l:lista);  
     procedure LeerVenta(var v:venta);
     begin
         with v do 
             begin
                 writeln('Ingrese el codigo de libro ');
                 readln(codL);
-                 writeln('Ingrese el dni ');
-                readln(dni);
-                writeln('Ingrese el mes ');
-                readln(mes);
-                 writeln('Ingrese el año ');
-                readln(anio);
+                if (codL <> DFl)then 
+                begin
+                    writeln('Ingrese el dni ');
+                    readln(dni);
+                    writeln('Ingrese el mes ');
+                    readln(mes);
+                    writeln('Ingrese el año ');
+                    readln(anio);
+                    writeln('-------------------------------------------------')
+                end;
             end;
     end;
     procedure AgregarAdelante (var l:lista; v:venta);
@@ -123,22 +124,23 @@ procedure CargarLista(var l:lista); //se dispone
 var
     v:venta;
 begin
+    writeln ('----LEER LISTA---');
     LeerVenta(v);
-    while (v.codL <> -1 )do
+    while (v.codL <> DFl )do
     begin
         AgregarAdelante(l,v);
         LeerVenta(v);
     end;
 end;
-
+}
 procedure Recorrer (v:vector; l:lista; var vc:vectorContador );
     procedure InicialiarVector (var vc:vectorContador); 
     var
         i:rangoM;
     begin
-         for i:=1 to DFm do v[i]:=0;
+        for i:=1 to DFm do vc[i]:=0;
     end;
-    funtion Impares(dni:integer):boolean;
+    function Impares(dni:integer):boolean;
     var 
         ok:boolean;
     begin
@@ -151,21 +153,22 @@ procedure Recorrer (v:vector; l:lista; var vc:vectorContador );
         Impares:=ok;
     end;
 var
-    cantT,cant, porcentaje:integer;
+    cantT,cant:integer;
+    porcentaje:real;
 begin
     InicialiarVector(vc);
     cantT:=0; cant:=0;
     while (l <> nil) do
     begin 
         vC[ v[l^.datos.codL].codM ] := vC[ v[l^.datos.codL].codM ] +1;
-        if ( Impares (l^.datos.dni) ) and ( (v[l^.datos.codL] >= 2011 ) and (v[l^.datos.codL].anioE) <= 2017 )then write (' las ventas a clientes con DNI sin dígitos pares, en las cuales el libro vendido fue editado entre los años 2011 y 2017 : ');
+        if ( Impares (l^.datos.dni) ) and ( (v[l^.datos.codL].anioE >= 2011 ) and (v[l^.datos.codL].anioE <= 2017) )then write (' las ventas a clientes con DNI sin dígitos pares, en las cuales el libro vendido fue editado entre los años 2011 y 2017 : ');
         writeln( l^.datos.anio, ' ', v[l^.datos.codL].titulo );
         if ( v[l^.datos.codL].precio > 2000 )then cant:=cant+1;
         cantT:=cantT+1;
         l:=l^.sig;
     end;
-    porcentaje:= (cant/cantT)*100;
-    writeln (' El porcentaje de ventas en las que el precio del libro vendido superó los $2000: ', porcentaje);
+    porcentaje:=(cant/cantT)*100;
+    writeln (' El porcentaje de ventas en las que el precio del libro vendido superó los $2000: ', porcentaje:00:00, '%');
 end;
 
 procedure ObtenerMaximo (v:vectorContador);
@@ -203,6 +206,6 @@ var
 begin
   CargarVector(v);
   CargarLista(l); //se dispone
-  Recorrer(v,l);
+  Recorrer(v,l,vc);
   ObtenerMaximo(vc);
 end.
