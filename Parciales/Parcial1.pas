@@ -61,6 +61,8 @@ type
             datos:venta;
             sig:lista;
           end;
+    
+    vectorContador= array [rangoM] of integer;
    
 //PROCESOS
 procedure CargarVector(var v:vector);
@@ -86,10 +88,10 @@ var
     l:libro;
     i:rangoL;
 begin
-    for i:=1 to 4 do
+    for i:=1 to 4 do //cambiar a 5000
     begin
         LeerLibro(l);
-        v[i]:=l;
+        v[l.codL]:=l;
     end;
 end;
 
@@ -100,15 +102,107 @@ procedure CargarLista(var l:lista); //se dispone
         with v do 
             begin
                 writeln('Ingrese el codigo de libro ');
-                readln(codL;
-    
+                readln(codL);
+                 writeln('Ingrese el dni ');
+                readln(dni);
+                writeln('Ingrese el mes ');
+                readln(mes);
+                 writeln('Ingrese el año ');
+                readln(anio);
+            end;
     end;
+    procedure AgregarAdelante (var l:lista; v:venta);
+    var
+      nuevo:lista;
+    begin
+      new (nuevo);
+      nuevo^.datos:= v;
+      nuevo^.sig:=l; 
+      l:=nuevo;
+    end;
+var
+    v:venta;
+begin
+    LeerVenta(v);
+    while (v.codL <> -1 )do
+    begin
+        AgregarAdelante(l,v);
+        LeerVenta(v);
+    end;
+end;
+
+procedure Recorrer (v:vector; l:lista; var vc:vectorContador );
+    procedure InicialiarVector (var vc:vectorContador); 
+    var
+        i:rangoM;
+    begin
+         for i:=1 to DFm do v[i]:=0;
+    end;
+    funtion Impares(dni:integer):boolean;
+    var 
+        ok:boolean;
+    begin
+        ok:=true;
+        while (dni <> 0) and (ok) do
+        begin
+            if ( (dni mod 2)= 0) then ok:=false;
+            dni:=dni div 10;
+        end;
+        Impares:=ok;
+    end;
+var
+    cantT,cant, porcentaje:integer;
+begin
+    InicialiarVector(vc);
+    cantT:=0; cant:=0;
+    while (l <> nil) do
+    begin 
+        vC[ v[l^.datos.codL].codM ] := vC[ v[l^.datos.codL].codM ] +1;
+        if ( Impares (l^.datos.dni) ) and ( (v[l^.datos.codL] >= 2011 ) and (v[l^.datos.codL].anioE) <= 2017 )then write (' las ventas a clientes con DNI sin dígitos pares, en las cuales el libro vendido fue editado entre los años 2011 y 2017 : ');
+        writeln( l^.datos.anio, ' ', v[l^.datos.codL].titulo );
+        if ( v[l^.datos.codL].precio > 2000 )then cant:=cant+1;
+        cantT:=cantT+1;
+        l:=l^.sig;
+    end;
+    porcentaje:= (cant/cantT)*100;
+    writeln (' El porcentaje de ventas en las que el precio del libro vendido superó los $2000: ', porcentaje);
+end;
+
+procedure ObtenerMaximo (v:vectorContador);
+     procedure Maximo(var m1,m2,max1,max2:integer; materia,cant:integer);
+        begin
+            if ( cant > max1 )then
+            begin
+                max2:= max1;
+                m2:= m1;
+                max1:= cant;
+                m1:= materia;
+            end
+            else
+            if ( cant > max2 )then
+            begin
+                max2:=cant;
+                m2:=materia;
+            end;
+            
+        end;
+var
+    i:rangoM;
+    max1,max2,m1,m2:integer;
+begin
+    max1:=-1; max2:=-1; 
+    m1:= 0; m2:=0; //no es necesario
+    for i:=1 to DFm do Maximo (m1,m2,max1,max2, i, v[i]);
+    writeln (' Las dos materias con mayor cantidad de libros vendidos: ', m1, ' ', m2);
+end;
 //PP
 var
     v:vector;
     l:lista;
+    vc:vectorContador;
 begin
   CargarVector(v);
   CargarLista(l); //se dispone
+  Recorrer(v,l);
+  ObtenerMaximo(vc);
 end.
-
