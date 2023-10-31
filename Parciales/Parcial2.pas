@@ -1,7 +1,4 @@
 {
-
-NO ESTA TERMINADO 
-
 REDICTADO DE CADP 2019 - Parcial 3ra Fecha (17/12/2019) - COMPLETO
 Un comercio de la ciudad de La Plata necesita un programa para administrar información de las ventas realizadas durante 2019. Para ello, se debe:
 A) Leer y almacenar la información de las ventas. De cada venta se lee: código, fecha (día y mes), DNI del cliente y monto. La lectura de información finaliza cuando se lee el DNI -1 (que no debe procesarse). La información debe quedar almacenada de manera ordenada por DNI del cliente. Tener en cuenta que cada cliente puede aparecer en una o más ventas.
@@ -50,6 +47,12 @@ type
             monto:real;
           end;
 
+    lista=^nodo;
+    nodo=record
+            datos:venta;
+            sig:lista;
+         end;
+         
     vectorContador = array [rangoM] of integer;
     
 //PROCESOS
@@ -112,10 +115,6 @@ begin
     end;
 end;
 
-
-2. Meses en los cuales se realizaron mayor y menor cantidad de ventas el primer día del mes.
-3. Porcentaje de ventas realizadas entre Febrero y Septiembre y con código compuesto por la misma cantidad de dígitos pares que impares.
-
 procedure RecorrerLista(l:lista; var vc:vectorContador);
     procedure InicializarVector(var vectorContador);
     var
@@ -123,9 +122,22 @@ procedure RecorrerLista(l:lista; var vc:vectorContador);
     begin
         for i:= 1 to DF do v[i]:=0;
     end;
+    function Cumple(dni:integer):boolean;
+    var
+        cantP,cantI:integer;
+    begin
+        cantP:=0; cantI:=0;
+        while ( dni <> 0 ) do
+        begin
+            if ( ( dni mod 2 ) = 0 )then cantP:=cantP+1
+                                    else cantI:=cantI+1; 
+            dni:=dni div 10;
+        end;
+        Cumple:= (cantP = cantI);
+    end;
 var
     actual,cant,cantT:integer;
-    montoTotal:real;
+    montoTotal,porcentaje:real;
 begin
     InicializarVector(vc);
     cant:=0; cantT:=0;
@@ -142,7 +154,9 @@ begin
             l:=l^.sig;
         end;  
         writeln('El monto total gastado para el cliente ', actual, ' es: ', montoTotal);
-    end;    
+    end;
+    porcentaje:=(cant/cantT)*100;
+    writeln('Porcentaje de ventas realizadas entre Febrero y Septiembre y con código compuesto por la misma cantidad de dígitos pares que impares: ', porcentaje:00:00,'%');
 end;
 
 procedure RecorrerVector(vc:vectorContador);
@@ -164,9 +178,10 @@ procedure RecorrerVector(vc:vectorContador);
     end;
 var
     max,min,mes1,mes2:integer;
+    i:rangoM;
 begin
     max:=-1; min:=999;
-    for i:= to DF do 
+    for i:=1 to DF do 
     begin
         Maximo(mes1,max,i,v[i]);
         Minimo(mes2,min,i,v[i]);
