@@ -120,13 +120,19 @@ procedure CargarLista2(var l2:lista2; l:lista; var vc:vectorContador);
         p2:plato2;
         i:rango2;
     begin
-        for i:=1 to diml do
+        ok:=true;
+        i:=1;
+        while ( (i <= diml) and (ok) ) do
+        begin
             if (v[i] = 'perejil')then 
             begin
+                ok:=false;
                 p2.nombre:=nombre;
                 p2.precio:=precio;
                 AgregarAdelante(l2, p2);
             end;
+            else i:=i+1;
+        end;
     end;
     procedure InicializarVector(var vc:vectorContador);
     var
