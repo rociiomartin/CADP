@@ -1,7 +1,4 @@
 {
-
-NO ESTA TERMINADO
-
 Una productora nacional realiza un casting de personas para la selección de actores extras de una
 nueva película, para ello se debe leer y almacenar la información de las personas que desean
 participar de dicho casting. De cada persona se lee: DNI, apellido y nombre, edad y el código de
@@ -24,7 +21,7 @@ type
     rango=1..DF;
     persona= record
                 dni:integer; //corte de control
-                nomApellido:cadena40;
+                nomApe:cadena40;
                 edad:integer;
                 codG:rango;
               end;
@@ -35,7 +32,7 @@ type
             sig:lista;
            end;
     
-    vectorContador = array [rango] of real; //se dispone    
+    vectorContador = array [rango] of integer;    
            
 //PROCESOS
 
@@ -47,10 +44,10 @@ procedure CargarLista(var l : lista);
         readln(p.dni);
         writeln(' Ingrese el nombre y apellido');
         readln(p.nomApe);
-        writeln(' Ingrese el edad de poliza');
+        writeln(' Ingrese el edad de la persona');
         readln(p.edad);
-        writeln(' Ingrese el codigo de poliza');
-        readln(p.codP);
+        writeln(' Ingrese el codigo de genero');
+        readln(p.codG);
         writeln('------------------------------------------------');
     end;
     procedure AgregarAdelante (var l:lista; p:persona);
@@ -79,9 +76,9 @@ procedure RecorrerLista (l:lista; var v:vectorContador);
         cantI:=0; cantP:=0;
         while ( dni <> 0) do
         begin
-            if ( (dni mod 2 )= 1 ) then cantI:=cantI+1;
+            if ( (dni mod 2 )= 1 ) then cantI:=cantI+1
                                    else cantP:=cantP+1;
-            cod:=cod div 10;
+            dni:= dni div 10;
         end;
         Cumple:=(cantP > cantI);
     end;
@@ -98,7 +95,9 @@ begin
     InicializarVector(v);
     while (l <> nil ) do
     begin
-    
+        if ( Cumple (l^.datos.dni) )then cant:=cant+1;
+        v[l^.datos.codG]:= v[l^.datos.codG]+1;
+        l:=l^.sig;
     end;
     writeln ('la cantidad de personas cuyo DNI contiene más dígitos pares que impares: ', cant);
 end;
@@ -121,12 +120,12 @@ procedure ObtenerMaximo(v:vectorContador);
             end;
     end;
 var
-    cod1,cod2,max1.max2:integer;
+    cod1,cod2,max1,max2:integer;
     i:rango;
 begin
     max1:=-1; max2:=-1;
-    for i:= 1 to DF Maximo(i,v[i],cod1,cod2,max1.max2);
-    writeln(':' ,cod1,' ',cod2);
+    for i:= 1 to DF do Maximo(i,v[i],cod1,cod2,max1,max2);
+    writeln('Los dos códigos de género más elegidos: ' ,cod1,' ',cod2);
 end;
 
 procedure Eliminar (var l: lista; dni:integer);
