@@ -23,6 +23,7 @@ program ejercicio4;
 const
     DF=2;//DF=100; 
     FIN=-1;
+    CAPA=30,5;
 type
   rango=1..DF;
   cadena20=string[20];
@@ -116,10 +117,52 @@ begin
     end;
 end;
 
+
+ que posean una antigiiedad mayor a 5 años al momento de realizar el viaje (año en
+que se realizó el viaje).
+3. Informar los códigos de los viajes realizados por choferes cuyo DNI tenga sólo dígitos impares.
+NOTA:los codigos de viaje no se repiten
+procedure Recorrer(l:lista; v:vectorCamiones);
+    procedure Maximo(var max,patMax:integer;dis,patente:integer);
+    begin
+        if ( max < dis ) then
+        begin
+            max:=dis;
+            patMax:=patente;
+        end;
+    end;
+    procedure Minimo(var min,patMin:integer;dis,patente:integer);
+    begin
+        if ( min > dis ) then
+        begin
+            min:=dis;
+            patMin:=patente;
+        end;
+    end;
+var
+    max,min,patMax,patMin,cant:integer;
+begin
+    max:=-1;min:=999; cant:=0;
+    while (l <> nil)do
+    begin
+        Maximo(max,patMax,l^.datos.dist,v[l^.datos.codC].patente);
+        Maximo(min,patMin,l^.datos.dist,v[l^.datos.codC].patente);
+        aux:= l^.datos.
+        if( (v[l^.datos.codC].cap < CAPA) )then cant:=cant+1;
+        l:=l^.sig;
+    end;
+    writeln('La patente del camión que más kilómetros recorridos posee: ', patMax);
+    writeln('La patente del camión que menos kilómetros recorridos posee: ', patMin);
+    writeln(' La cantidad de viajes que se han realizado en camiones con capacidad mayor a 30,5
+toneladas y que posean una antigiiedad mayor a 5 años al momento de realizar el viaje: ', cant);
+end;
+
+
 //PP
 var 
     v:vectorCamiones;
 begin
     CargarVector(v);//se dispone
     CargarLista(l);
+    Recorrer(l);
 end;
