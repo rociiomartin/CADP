@@ -18,3 +18,108 @@ que se realizó el viaje).
 3. Informar los códigos de los viajes realizados por choferes cuyo DNI tenga sólo dígitos impares.
 NOTA:los codigos de viaje no se repiten
 }
+
+program ejercicio4;
+const
+    DF=2;//DF=100; 
+    FIN=-1;
+type
+  rango=1..DF;
+  cadena20=string[20];
+  
+  camion=record
+            patente:integer;
+            anioF:integer;
+            cap:integer;
+         end;
+  vectorCamiones = array [rango] of camion; //se dispone
+  
+  viaje=record
+            codV:integer; //corte de control, no se repiten.
+            codC:rango;
+            dist:integer;
+            ciudad:cadena20;
+            anioV:integer;
+            dni:integer;
+        end;
+  lista=^nodo; 
+  nodo = record 
+            datos:viaje;
+            sig:lista;
+           end;
+//PROCESOS
+{SE DISPONE}
+procedure CargarVector(var v:vectorCamiones);
+    procedure LeerCamiones(var c:camion);
+    begin
+        writeln(' Ingrese el patente --FIN vacio -- ');
+        readln(c.patente);
+        if ( c.patente <> ' ' )then
+        begin
+          writeln('Ingrese el año de fabricacion');
+          readln(c.anioF);
+          writeln('Ingrese la capacidad');
+          readln(c.cap);
+        end;
+    end;
+var
+   i:rango;
+   c:camion;
+begin
+    writeln('--CARGANDO VECTOR--');
+    for i:=1 to DF do
+    begin
+        LeerCamiones(c);
+        v[i]:= c;
+    end;
+end;
+{}
+procedure CargarLista(var l:lista);
+    procedure LeerViajes(var v:viaje);
+    begin
+        writeln(' Ingrese el codigo de viaje --FIN -1 -- ');
+        readln(v.codV);
+        if ( v.codV <> FIN )then
+        begin
+            writeln(' Ingrese el codigo de camion');
+            readln(v.codC);
+            writeln(' Ingrese la distancia');
+            readln(v.dist);
+            writeln(' Ingrese la ciudad ');
+            readln(v.ciudad);
+            writeln(' Ingrese el año del viaje');
+            readln(v.anioV);
+            writeln(' Ingrese el dni');
+            readln(v.dni);
+            writeln('------------------------------------------------');
+        end;
+    end;
+    procedure AgregarAdelante(var l:lista; v:viaje);
+    var
+      nuevo:lista;
+    begin
+      new (nuevo);
+      nuevo^.datos:= v;
+      nuevo^.sig:=l; 
+      l:=nuevo;
+    end;
+var
+   v:viaje;
+begin
+    l:=nil;
+    writeln('--CARGANDO LISTA--');
+    LeerViajes(v);
+    while ( v.codV <> FIN )do
+    begin
+        AgregarAdelante(l,v);
+        LeerViajes(v);
+    end;
+end;
+
+//PP
+var 
+    v:vectorCamiones;
+begin
+    CargarVector(v);//se dispone
+    CargarLista(l);
+end;
