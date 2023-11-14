@@ -86,7 +86,6 @@ procedure CargarLista(var l:lista);
         end;
     var
         v:vectorCultivos;
-        diml:integer;
     begin
         writeln('--EMPRESAS--');
         writeln(' Ingrese codigo --FIN -1 -- ');
@@ -99,8 +98,7 @@ procedure CargarLista(var l:lista);
             readln(e.EoP);
             writeln(' Ingrese la ciudad ');
             readln(e.ciudad);
-            CargarVectorCultivos(v,diml);
-            e.diml:=diml;
+            CargarVectorCultivos(v,e.diml);
         end;
         writeln('------------------------------------------------');
     end;
