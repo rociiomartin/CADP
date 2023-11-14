@@ -112,4 +112,5 @@ var
   l:lista;
 begin
   CargarLista(l);//se dispone
+  Recorrer(l);
 end.
