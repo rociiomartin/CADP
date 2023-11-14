@@ -28,8 +28,8 @@ type
            end;
     
 //PROCESOS
-{SE DISPONE}
-procedure CargarLista(var l : lista);
+{SE DISPONE
+procedure CargarLista(var l:lista);
     procedure CargarVector(var v:vectorSemanas; var diml:integer );
     var
         peso:real;
@@ -76,11 +76,11 @@ begin
     LeerPacientes(p);
     while ( p.nom <> ' ' )do
     begin
-        LeerPacientes(p);
         AgregarAdelante(l,p);
+        LeerPacientes(p);
     end;
 end;
-
+}
 procedure Recorrer(l:lista);
     procedure Maximo(var max:real;var sem:integer; km:real; i:integer);
     begin
@@ -90,31 +90,27 @@ procedure Recorrer(l:lista);
             sem:=i;
         end;
     end;
-    procedure RecorrerVector(var max,pesoT:real;var sem:integer; v:vectorSemanas; diml:integer);
+    procedure RecorrerVector(v:vectorSemanas; diml:integer);
     var
-       peso:real;
+       max,pesoT,peso:real;
        i:rango;
+       sem:integer;
     begin
-        pesoT:=0;
-        for i:= 1 to diml-1 do
+        pesoT:=0; max:=-1;
+        for i:=1 to diml-1 do
         begin
-            peso:= v[i+1]-v[i];
-            pesoT:=pesoT+peso;
+            peso:= v[i+1] - v[i]; 
+            pesoT:=pesoT+peso; 
             Maximo(max,sem,peso,i);
         end;
+        writeln('  La semana con mayor aumento de peso fue: ', sem);
+        writeln('  Su aumento de peso total fue: ', peso:00:00);
     end;
-var
-    max,peso:real;
-    semana:integer;
 begin
-    max:=-1;
     while ( l <> nil ) do
     begin
-        peso:=0.0;
-        RecorrerVector(max,peso,semana,l^.datos.peso,l^.datos.diml);
-        writeln('--Embarazada: ', l^.datos.nom, '---');
-        writeln('  La semana con mayor aumento de peso fue: ', semana);
-        writeln('  Su aumento de peso total fue: ', peso:00:00);
+        writeln('--Embarazada: ', l^.datos.nom);
+        RecorrerVector(l^.datos.peso,l^.datos.diml);
         l:=l^.sig;
     end;
 end;
