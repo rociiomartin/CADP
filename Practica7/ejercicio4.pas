@@ -46,8 +46,6 @@ procedure CargarLista(var l:lista);
         end;
    end;
     procedure LeerPacientes(var p:paciente);
-    var
-        v:vectorSemanas;
     begin
         writeln(' Ingrese el nom --FIN vacio -- ');
         readln(p.nom);
@@ -55,7 +53,7 @@ procedure CargarLista(var l:lista);
         begin
           writeln('Ingrese el apellido');
           readln(p.ape);
-          CargarVector(v,p.diml);
+          CargarVector(p.peso,p.diml);
           writeln('------------------------------------------------');
         end;
     end;
@@ -104,7 +102,7 @@ procedure Recorrer(l:lista);
             Maximo(max,sem,peso,i);
         end;
         writeln('  La semana con mayor aumento de peso fue: ', sem);
-        writeln('  Su aumento de peso total fue: ', peso:00:00);
+        writeln('  Su aumento de peso total fue: ', pesoT:00:00);
     end;
 begin
     while ( l <> nil ) do
