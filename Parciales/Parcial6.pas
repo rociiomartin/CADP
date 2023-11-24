@@ -117,7 +117,7 @@ end;
 procedure CalcularMinimo(v:vectorContador);
     procedure Minimo(var min1,min2,cat1,cat2:integer;cant,categoria:integer);
     begin
-        if( min1 < cant )then
+        if( min1 > cant )then
         begin
             min2:=min1;
             cat2:=cat1;
@@ -125,7 +125,7 @@ procedure CalcularMinimo(v:vectorContador);
             cat1:=categoria;
         end
         else
-            if( min2 < cant )then
+            if( min2 > cant )then
             begin
                 min2:=cant;
                 cat2:=categoria;
@@ -135,7 +135,7 @@ var
     i:rango1;
     min1,min2,cat1,cat2:integer;
 begin
-    min1:=999;min2:=999; cat1:=-1;cat2:=-1;
+    min1:=999;min2:=999; 
     for i:=1 to DF do Minimo(min1,min2,cat1,cat2,v[i],i);
     writeln ('Las dos categorías con menor cantidad de productos comercializados: ', cat1, ' y ', cat2);
 end;
