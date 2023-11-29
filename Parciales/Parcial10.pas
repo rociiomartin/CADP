@@ -1,4 +1,6 @@
 {
+TIRA UN ERROR 210 INICIALIZAR VECTOR
+
 CADP 2023 - Parcial - Segunfa Fecha - 25/11/2023 
 Un salón de eventos necesita un programa para administrar la información de las reservas de diciembre de 2023. Se dispone de 
 una estructura con la información de las reservas. De cada reserva se conoce: número de reserva, DNI del cliente, día del
@@ -6,13 +8,14 @@ evento (1..31), hora de inicio, hora de fin y categoría de servicio (1..4). Ade
 hora de reserva de acuerdo a cada categoría de servicio.
 Se pide:
 
-A) Generar una nueva estructura con número y precio total de cada reserva. Esta estructura debe generarse ordenada por el 
-precio total de cada reserva.
+A) Generar una nueva estructura con número y precio total de cada reserva. Esta estructura debe generarse ordenada por el precio 
+total de cada reserva.
 B) Informar los dos días del mes con menor cantidad de reservas de clientes con DNI impar.
 C) Informar el porcentaje de reservas de eventos que inicien después de las 12 hs y se produzcan en la segunda quincena.
 }
 
-program parcial;
+
+program Hello;
 const   
     DF1=31;
     DF2=4;
@@ -44,12 +47,13 @@ type
     lista2=^nodo2;
     nodo2=record
             datos:nueva;
-            sig:lista;
+            sig:lista2;
          end;
          
     vectorContador= array [rango1] of integer;
 
 //PROCESOS
+
 {SE DISPONE
 procedure CargarLista(var l:lista);
     procedure LeerReseva(var r:reserva);
@@ -107,6 +111,7 @@ begin
     end;
 end;
 }
+
 procedure RecorrerLista(l:lista; v:vectorPrecio; var l2:lista2; var v2:vectorContador);
     procedure InsertarOrdenado(var l2:lista2; n:nueva);
     var
@@ -134,12 +139,18 @@ procedure RecorrerLista(l:lista; v:vectorPrecio; var l2:lista2; var v2:vectorCon
         if ( (dni mod 2) = 1 ) then Impar:=true
                                else Impar:=false;
     end;
+    procedure InicializarVector(var v2:vectorContador);
+    var
+        i:rango1;
+    begin
+        for i:=1 to DF1 do v[i]:=0;
+    end;
 var
     cantTotal,cant,porcentaje:integer;
     precioTotal:real;
     n:nueva;
 begin
-    cantTotal:=0; cant:=0; l2:=nil;
+    cantTotal:=0; cant:=0; l2:=nil; InicializarVector(v2);
     while ( l <> nil )do
     begin
         cantTotal:=cantTotal+1;
@@ -179,10 +190,22 @@ var
     i,dia1,dia2:rango1;
     min1,min2:integer;
 begin
-    min1:=999;min2:=999; 
+    min1:=999;min2:=999;
     for i:=1 to DF1 do Minimo(min1,min2,dia1,dia2,v[i],i);
     writeln('Los dos días del mes con menor cantidad de reservas de clientes con DNI impar: ', dia1 ,' ',dia2);
 end;
+{
+procedure Imprimir(l2:lista2);
+begin
+    while ( l2 <> nil ) do
+    begin
+        writeln('--PROBANDO--');
+        writeln('Num: ', l2^.datos.num);
+        writeln('Precio: ', l2^.datos.precio);
+        l2:=l2^.sig;
+    end;
+end;
+}
 //PP
 var
     l:lista; l2:lista2;
@@ -192,4 +215,5 @@ begin
     CargarVector(v);//se dispone 
     RecorrerLista(l,v,l2,v2);
     ObtenerMinimo(v2);
+    Imprimir(l2);
 end.
