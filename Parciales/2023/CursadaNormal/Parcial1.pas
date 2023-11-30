@@ -174,7 +174,7 @@ var
     vec:vectorContador;
 begin
     CargarLista(l);//se dispone
-    CargarVector(v);
+    CargarVector(v);//se dispone
     Recorrer(l,v,l2,vec);
     ObtenerMaximo(vec);
 end.
