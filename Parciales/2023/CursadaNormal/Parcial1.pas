@@ -1,5 +1,5 @@
 {
-CADP 2023 Parcial - Primera Fecha - 10/6/2023 - TEMA-2 - 10:30 hs
+CADP 2023 - Parcial Primera Fecha - 10/6/2023 - TEMA-2 - 10:30 hs
 
 Un teatro esta analizando la información de los tickets vendidos durante el año 2022. Para ello, se dispone una estructura
 de datos con la información de todos los tickets vendidos. De cada ticket se conoce el código del evento, dni del comprador,
