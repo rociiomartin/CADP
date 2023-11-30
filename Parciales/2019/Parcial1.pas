@@ -1,7 +1,6 @@
 {
 
-CADP 2019. Segundo recuperatorio - COMPLETO
-19/7/2019
+CADP 2019. Segundo recuperatorio - COMPLETO 19/7/2019
 Una editorial vende libros de apoyo escolar para varias materias, codificadas de la siguiente forma: 1) Historia; 2) Geografía; 
 3) Matemática; 4) Biología; 5) Física; 6) Química y 7) Lengua. El catálogo de la editorial consta de 5000 libros con la siguiente 
 información: código de libro (entre 1 y 5000), código de materia (entre 1 y 7), título, año de edición, precio de venta y apellido
