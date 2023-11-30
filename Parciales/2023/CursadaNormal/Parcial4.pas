@@ -1,5 +1,6 @@
 {
-﻿CADP 2023-Parcial - Segunda Fecha - 01/07/2023 - TEMA 2 - 8:00 AM
+﻿CADP 2023 - Parcial Segunda Fecha - 01/07/2023 - TEMA 2 - 8:00 AM
+ 
 El productor musical Bizarrap organiza sesiones musicales con diferentes artistas. Se dispone de una estructura de datos con la
 información de las sesiones de Bizarrap. De cada sesión se conoce: título, nombre del artista, género musical (1: Trap Latino, 
 2: Reggaeton 3: Urban, 4: Electrónica, 5: Pop Rap), año de estreno y cantidad de reproducciones en Spotify. La información no 
