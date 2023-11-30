@@ -1,7 +1,7 @@
 {
 TIRA UN ERROR 210 INICIALIZAR VECTOR
 
-CADP 2023 - Parcial - Segunfa Fecha - 25/11/2023 
+CADP 2023 - Parcial - Segunda Fecha - 25/11/2023 TEMA 1
 Un salón de eventos necesita un programa para administrar la información de las reservas de diciembre de 2023. Se dispone de 
 una estructura con la información de las reservas. De cada reserva se conoce: número de reserva, DNI del cliente, día del
 evento (1..31), hora de inicio, hora de fin y categoría de servicio (1..4). Además, se dispone de una tabla con el precio por 
