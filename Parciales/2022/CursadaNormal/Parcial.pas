@@ -1,5 +1,5 @@
 {
-﻿CADP 2022 - TEMA 1 - COMPLETO 11/06/2022
+﻿CADP 2022 - Parcial Primera Fecha - 11/6/2022 - TEMA 1 - COMPLETO 
  
 Una panadería artesanal de La Plata vende productos de elaboración propia. La panadería agrupa a sus productos en 26 categorías
 (por ej.: 1. Pan; 2. Medialunas; 3. Masas finas; etc.). Para cada categoría se conoce su nombre y el precio por kilo del producto.
