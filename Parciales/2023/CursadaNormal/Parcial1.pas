@@ -5,16 +5,13 @@ Una empresa de venta de tickets de tren está analizando la información de los 
 durante el año 2022. Para ello, se dispone de una estructura de datos con la información de todos los viajes.
 De cada viaje se conoce el código de tren, el mes en que se realizó el viaje (entre 1 y 12), la cantidad de
 pasajeros que viajaron, y el código de la ciudad de-destino (entre 1 y 20). La información se encuentra
-ordenada por código de tren.
-
-Además, la empresa dispone de una estructura de datos con información del costo del ticket por ciudad
-destino.
-
+ordenada por código de tren. Además, la empresa dispone de una estructura de datos con información del costo 
+del ticket por ciudad destino.
 Realizar un programa que procese la información de los viajes y:
-A. Genere una lista que tenga por cada código del tren, a cantidad de viajes realizados
-B. Informe el mes con mayor monto recaudado. :
-C. COMPLETO: Informe el promedio de pasajeros por cada tren entre todos sus viajes.
 
+A. Genere una lista que tenga por cada código del tren, a cantidad de viajes realizados
+B. Informe el mes con mayor monto recaudado. 
+C. COMPLETO: Informe el promedio de pasajeros por cada tren entre todos sus viajes.
 }
 
 program parcial;
@@ -54,7 +51,7 @@ type
     vectorContador= array [rango1] of real;
           
 //PROCESOS
-{SE DISPONE}
+{SE DISPONE
 procedure CargarLista(var l:lista);
     procedure LeerViajes(var v:viaje);
     begin
@@ -113,8 +110,8 @@ begin
         v[i]:=precio;
     end;
 end;
+}
 
-{C. COMPLETO: Informe el promedio de pasajeros. por cada tren.entre fodos sus }
 procedure Recorrer(l:lista; v:vectorCiudad;var l2:lista2; var vec:vectorContador);
     procedure InicializarVector(var vec:vectorContador);
     var
@@ -133,19 +130,23 @@ procedure Recorrer(l:lista; v:vectorCiudad;var l2:lista2; var vec:vectorContador
       l:=nuevo;
     end;
 var 
-    codActual,cant:integer;
+    codActual,cant,cantP:integer;
+    promedio:real;
 begin
-    InicializarVector(vec); l2:=nil;
+    InicializarVector(vec); l2:=nil; 
     while ( l <> nil ) do
     begin
-        codActual:=l^.datos.cod; cant:=0;
+        codActual:=l^.datos.cod; cant:=0; cantP:=0;
         while( ( l <> nil ) and (codActual = l^.datos.cod) )do
         begin
             cant:=cant+1;
+            cantP:=cant + l^.datos.cantP;
             vec[l^.datos.mes]:= vec[l^.datos.mes]+ v[l^.datos.codCD];
             l:=l^.sig;
         end;
         AgregarAdelante(l2,codActual,cant);
+        promedio:=cantP / cant;
+        writeln('El promedio de pasajeros del tren ' , codActual, ' entre todos sus viajes es: ', promedio:00:00);
     end;
 end;
 
