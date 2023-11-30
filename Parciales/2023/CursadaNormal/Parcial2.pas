@@ -1,7 +1,7 @@
 {
 INCOMPLETO ENUNCIADO 
 
-CADP 2023 - Parcial - Primera Fecha - 10/6/2023 - TEMA 1 10:30 hs
+CADP 2023 - Parcial Primera Fecha - 10/6/2023 - TEMA 1 - 10:30 hs
 
 Una empresa de venta de tickets de tren está analizando la información de los viajes realizados por sus trenes
 durante el año 2022. Para ello, se dispone de una estructura de datos con la información de todos los viajes.
