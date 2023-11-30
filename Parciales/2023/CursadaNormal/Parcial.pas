@@ -1,6 +1,4 @@
 {
-INCOMPLETO ENUNCIADO 
-
 CADP 2023 - Parcial Primera Fecha - 10/6/2023 - TEMA 1 - 10:30 hs
 
 Una empresa de venta de tickets de tren está analizando la información de los viajes realizados por sus trenes
@@ -15,7 +13,7 @@ destino.
 Realizar un programa que procese la información de los viajes y:
 A. Genere una lista que tenga por cada código del tren, a cantidad de viajes realizados
 B. Informe el mes con mayor monto recaudado. :
-C. COMPLETO: Informe el promedio de pasajeros. por cada tren.entre fodos sus e
+C. COMPLETO: Informe el promedio de pasajeros por cada tren entre todos sus viajes.
 
 }
 
