@@ -1,5 +1,6 @@
 {
 CADP 2023 - Parcial Tercera Fecha - 15/7/2023 - TEMA 1
+
 Una revista deportiva dispone de información de los jugadores de fútbol participantes de la liga profesional 2022. De cada jugador se
 conoce código de jugador, apellido y nombres, código de equipo (1..28), año de nacimiento y la calificación obtenida para cada una de
 las 27 fechas del torneo ya finalizado. La calificación es numérica de 0 a 10, donde el valor 0 significa que el jugador no ha 
