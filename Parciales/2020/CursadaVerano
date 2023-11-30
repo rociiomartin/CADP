@@ -1,0 +1,17 @@
+{
+Curso de Verano CADP 2020 - Parcial (10/3/2020)
+empresa administra la información de sus empleados y necesita disponer de un programa que:
+a) Lea y almacene la información de los empleados. De cada empleado se conoce: DNI, apellido, nombre, categoría (A, B, C, D o E),
+sueldo básico, montos de los premios obtenidos en el mes (como máximo 5) y antigüedad en la empresa. La lectura de la información
+finaliza cuando se lee el DNI -1 (que no debe procesarse). La información debe ser almacenada de manera ordenada por DNI de menor
+a mayor.
+Una vez leída y almacenada la información: INFORMAR
+b) Obtener una lista de "Liquidaciones" con DNI del empleado y sueldo mensual a cobrar. El sueldo mensual se calcula de la 
+siguiente manera:
+EMPLEADO Categoría A, B o C → Sueldo básico + premios.
+EMPLEADO Categoría D, E→ Sueldo básico + premios + 1000 pesos por cada año de trabajo en la empresa.
+
+c) Informar para cada categoría la cantidad de empleados.
+
+d) Eliminar de la lista de "Liquidaciones" el empleado con DNI 555, de ser posible.
+}
