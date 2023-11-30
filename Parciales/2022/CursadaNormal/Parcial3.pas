@@ -1,5 +1,5 @@
 {
-CADP 2022 - Parcial Segunda Fecha - 2/6/2022 - TEMA 1 - COMPLETO 
+CADP 2022 - Parcial Segunda Fecha - 2/7/2022 - TEMA 1 - COMPLETO 
 
 La cátedra de CADP necesita un programa para generar el listado de alumnos ingresantes que rendirán el parcial. Para ello, la cátedra
 DISPONE de un listado con todos alumnos que ingresaron este año a la facultad. De cada alumno se conoce su DNI, nombre y apellido,
