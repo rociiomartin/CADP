@@ -8,9 +8,9 @@ a.Realizar un módulo que retorne en una estructura de datos la información de 
 (entre 1 y 3400), nombre y apellido, DNI y localidad. La información se ingresa por teclado sin ningún orden en particular.
 
 b. Realizar un módulo que reciba la información de las facturas, la información de los clientes y un código de cliente (que podría
-no existir), y retorne una estructura de datos con nombre, apellido, DNI del cliente, monto total facturado al cliente, y mes, año y
-monto de cada una de las facturas emitidas al cliente. Esta información debe estar ordenada por monto de las facturas.
-se refiere
+no existir), y retorne una estructura de datos con nombre, apellido, DNI del cliente, monto total facturado al cliente, y mes, año
+y monto de cada una de las facturas emitidas al cliente. Esta información debe estar ordenada por monto de las facturas.
+
 Nota: incluir el programa principal donde se invoquen los módulos implementados.
 
 }
