@@ -1,5 +1,6 @@
 {
 ﻿CADP 2023-Parcial - Segunda Fecha - 01/07/2023- TEMA 1-8:00 AM
+ 
 El productor musical Bizarrap organiza sesiones musicales con diferentes artistas. Implementar un programa que lea y almacene 
 información de dichas sesiones. De cada sesión se lee: título de sesión, nombre del artista, género musical (1: Trap Latino, 2: 
 Reggaeton 3: Urban, 4: Electrónica, 5: Pop Rap) y cantidad de visualizaciones en YouTube. La lectura finaliza cuando se lee la 
