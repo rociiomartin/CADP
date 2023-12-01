@@ -48,7 +48,7 @@ type
            
     vectorContador = array [rango1] of integer;
 //PROCESOS
-{SE DISPONE}
+{SE DISPONE
 procedure CargarLista(var l:lista);
     procedure LeerTickets(var t:ticket);
     begin
@@ -107,7 +107,7 @@ begin
         v[i]:=precio;
     end;
 end;
-
+}
 procedure Recorrer(l:lista; v:vectorUbicacion; var l2:lista2; var vec:vectorContador);
     procedure InicializarVector(var vec:vectorContador);
     var
