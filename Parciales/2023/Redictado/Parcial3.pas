@@ -140,7 +140,7 @@ procedure RecorrerLista(l:lista; v:vectorPrecio; var l2:lista2; var v2:vectorCon
     var
         i:rango1;
     begin
-        for i:=1 to DF1 do v[i]:=0;
+        for i:=1 to DF1 do v2[i]:=0;
     end;
 var
     cantTotal,cant,porcentaje:integer;
@@ -193,18 +193,6 @@ begin
     writeln('Los dos días del mes con mayor cantidad de reservas de clientes con DNI par: ', dia1 ,' ',dia2);
 end;
 
-{
-procedure Imprimir(l2:lista2);
-begin
-    while ( l2 <> nil ) do
-    begin
-        writeln('--PROBANDO--');
-        writeln('Num: ', l2^.datos.num);
-        writeln('Precio: ', l2^.datos.precio);
-        l2:=l2^.sig;
-    end;
-end;
-}
 //PP
 var
     l:lista; l2:lista2;
@@ -214,5 +202,4 @@ begin
     CargarVector(v);//se dispone 
     RecorrerLista(l,v,l2,v2);
     ObtenerMaximo(v2);
-    //Imprimir(l2);
 end.
