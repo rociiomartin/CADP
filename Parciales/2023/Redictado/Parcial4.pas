@@ -1,6 +1,4 @@
 {
-TIRA UN ERROR 210 INICIALIZAR VECTOR
-
 CADP 2023 - Parcial - Segunda Fecha - 25/11/2023 TEMA 2
 Un salón de eventos necesita un programa para administrar la información de las reservas de diciembre de 2023. Se dispone de 
 una estructura con la información de las reservas. De cada reserva se conoce: número de reserva, DNI del cliente, día del
@@ -121,7 +119,7 @@ procedure RecorrerLista(l:lista; v:vectorPrecio; var l2:lista2; var v2:vectorCon
         ant:=l2;
         new(aux);
         aux^.datos:= n;
-        while (act<>nil) and (act^.datos.precio < aux^.datos.precio) do
+        while (act<>nil) and (act^.datos.precio < aux^.datos.precio) do //menor a mayor
         begin
             ant:=act;
             act:=act^.sig;
@@ -143,7 +141,7 @@ procedure RecorrerLista(l:lista; v:vectorPrecio; var l2:lista2; var v2:vectorCon
     var
         i:rango1;
     begin
-        for i:=1 to DF1 do v[i]:=0;
+        for i:=1 to DF1 do v2[i]:=0;
     end;
 var
     cantTotal,cant,porcentaje:integer;
@@ -159,7 +157,7 @@ begin
         n.num:=l^.datos.num; n.precio:=precioTotal;
         InsertarOrdenado(l2,n);
         
-        if ( Impar(l^.datos.dni) ) then v2[l^.datos.dia]:= v2[l^.datos.dia]+1;
+        if ( Impar(l^.datos.dni) ) then v2[l^.datos.dia]:=v2[l^.datos.dia]+1;
         
         if ( (l^.datos.horaI > 12) and (l^.datos.dia >=15) ) then cant:=cant+1;
         
@@ -169,10 +167,10 @@ begin
     writeln ('El porcentaje de reservas de eventos que inicien después de las 12 hs y se produzcan en la segunda quincena:', porcentaje,'%');
 end;
 
-procedure ObtenerMinimo(v:vectorContador);
+procedure ObtenerMinimo(v2:vectorContador);
     procedure Minimo(var min1,min2:integer;var dia1,dia2:rango1; cant:integer; d:rango1);
     begin
-        if( min1 < cant )then
+        if( min1 > cant )then
         begin
             min2:=min1;
             dia2:=dia1;
@@ -180,7 +178,7 @@ procedure ObtenerMinimo(v:vectorContador);
             dia1:=d;
         end
         else
-            if ( min2 < cant )then
+            if ( min2 > cant )then
             begin
                 min2:=cant;
                 dia2:=d;
@@ -189,23 +187,12 @@ procedure ObtenerMinimo(v:vectorContador);
 var
     i,dia1,dia2:rango1;
     min1,min2:integer;
-begin
-    min1:=999;min2:=999;
-    for i:=1 to DF1 do Minimo(min1,min2,dia1,dia2,v[i],i);
+begin 
+    min1:=999;min2:=999; dia1:=-1;dia2:=-1;
+    for i:=1 to DF1 do Minimo(min1,min2,dia1,dia2,v2[i],i);
     writeln('Los dos días del mes con menor cantidad de reservas de clientes con DNI impar: ', dia1 ,' ',dia2);
 end;
-{
-procedure Imprimir(l2:lista2);
-begin
-    while ( l2 <> nil ) do
-    begin
-        writeln('--PROBANDO--');
-        writeln('Num: ', l2^.datos.num);
-        writeln('Precio: ', l2^.datos.precio);
-        l2:=l2^.sig;
-    end;
-end;
-}
+
 //PP
 var
     l:lista; l2:lista2;
@@ -215,5 +202,4 @@ begin
     CargarVector(v);//se dispone 
     RecorrerLista(l,v,l2,v2);
     ObtenerMinimo(v2);
-    Imprimir(l2);
 end.
