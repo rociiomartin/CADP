@@ -1,0 +1,105 @@
+{
+TEMA A (Práctica 4)
+Realizar un programa que:
+1. Lea y almacene en un vector a lo sumo 200 números enteros (la lectura 
+finaliza cuando se lee el número -1, el cual no se procesa). Una vez realizada 
+la carga del vector, procesar e informar:
+
+a. La posición del mayor elemento par del vector y la del menor elemento impar 
+del vector.
+b. Porcentaje de números con mayor cantidad de dígitos pares que impares.
+Nota: Modularizar adecuadamente
+}
+
+
+program practica4;
+const
+    DF=200; //a lo sumo
+    FIN=-1;
+type
+    rango=1..DF;
+    vector= array [rango] of integer;
+//Procesos
+procedure CargarVector (var v:vector;var diml:integer);
+var
+    num:integer;
+begin
+    writeln('Ingrese un numero --FIN -1 --');
+    readln(num);
+    while (  (num <> FIN) and ( diml <= DF) ) do
+    begin
+        diml:=diml+1;
+        v[diml]:=num;
+        readln(num);
+    end;
+end;
+
+function ParImpar(num:integer):boolean;
+begin
+    ParImpar:=( num mod 2) = 0;
+end;
+
+function Descomponer(num:integer):boolean;
+var
+    par,impar:integer;
+begin
+    par:=0; impar:=0;
+    while ( num <> 0) do
+    begin
+        if ( ParImpar(num) ) then par:=par+1  
+                             else impar:=impar+1;
+        num:=num div 10;
+    end;
+    if ( impar < par) then Descomponer:= true
+                      else Descomponer:=false;
+end;
+
+procedure Maximo (var pos:rango;var max:integer;i:rango;num:integer);
+begin
+    if ( max < num)then
+    begin
+        max:=num;
+        pos:=i;
+    end;
+end;
+
+procedure Minimo (var pos:rango;var min:integer;i:rango;num:integer);
+begin
+    if ( min > num)then
+    begin
+        min:=num;
+        pos:=i;
+    end;
+end;
+
+function Porcentaje(diml:rango;cant:integer):integer;
+begin
+    Porcentaje:= (cant div diml)*100;
+end;
+
+procedure RecorrerVector(v:vector;diml:integer;var pos1,pos2:rango;var cant:integer);
+var
+    i:rango;
+    max,min:integer;
+begin
+    max:=-1;min:=9999; cant:=0;
+    for i := 1 to diml do
+    begin
+        if ( ParImpar(v[i])) then Maximo (pos1,max,i,v[i]) //si es par
+                            else Minimo (pos2,min,i,v[i]); //si es impar
+        if (Descomponer(v[i])) then cant:=cant+1;  
+    end;
+end;
+//PP
+var 
+    v:vector;
+    pos1,pos2:rango;
+    diml,cant:integer;
+begin
+  diml:=0;
+  CargarVector(v,diml);
+  RecorrerVector(v,diml,pos1,pos2,cant);
+  writeln(' La posición del mayor elemento par del vector es ', pos1, ' y la del menor elemento impar del vector', pos2);
+    writeln('Porcentaje de números con mayor cantidad de dígitos pares que impares : ', Porcentaje(diml,cant) , '%');
+end.
+
