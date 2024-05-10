@@ -1,0 +1,62 @@
+{
+Una asociación internacional de tenis lee información de los  1000 jugadores participantes
+de sus torneos. De cada jugador se sabe su Nombre y Apellido, código de país y el total de
+puntos acumulados durante la temporada. Realizar un programa que lea dicha información e informe:
+
+1. Nombres y Apellidos de los jugadores que ocupan los 2 primeros puestos del ranking (aquellos 2
+jugadores que tienen mas puntos acumulados en la temporada).
+
+2. Porcentaje de jugadores argentinos (Código "ARG").
+
+}
+
+
+program Hello;
+const 
+    DF=3;
+type
+    rango=1..DF;
+    str30=string[30];
+    str3=string[3];
+//PROCESOS
+procedure Maximo (var nom1,nom2:str30;var max1,max2:integer;nomApe:str30;puntos:integer);
+begin
+    if ( max1 < puntos) then
+    begin
+        max2:=max1;nom2:=nom1;
+        max1:=puntos;nom1:=nomApe;
+    end
+    else    
+        if ( max2 < puntos)then
+        begin
+            max2:=puntos;
+            nom2:=nomApe;
+        end;
+end;
+function Porcentaje (cant:integer):integer;
+begin   
+    Porcentaje:= (cant div DF)*100;
+end;
+//PP
+var
+    i:rango;
+    nomApe,nom1,nom2:str30;
+    codigo:str3;
+    puntos,max1,max2,cant:integer;
+begin
+    nom1:= ' '; nom2:=' '; max1:=-1; max2:=-1; cant:=0;
+    for i:= 1 to 3 do
+    begin
+        writeln('Ingrese el nombre');
+        readln(nomApe);
+        writeln('Ingrese el codigo de pais');
+        readln(codigo);
+        writeln('Ingrese el total de puntos');
+        readln(puntos);
+        Maximo(nom1,nom2,max1,max2,nomApe,puntos);
+        if ( codigo = 'ARG') then cant:= cant +1;
+        writeln(cant);
+    end;
+    writeln ('Nombres y Apellidos de los jugadores que ocupan los 2 primeros puestos del ranking: ', nom1,' y ', nom2);
+    writeln('Porcentaje de jugadores argentinos con código "ARG": ', Porcentaje(cant), '%');
+end.
