@@ -1,0 +1,84 @@
+{TEMA B – Recuperatorio (Práctica 3 y 2)
+Una empresa de turismo desea relevar información de las “mejores ciudades 
+para visitar” del país. Para ello se lee la siguiente información de cada ciudad: 
+Nombre, cantidad de habitantes, puntaje designado por la revista "El viajero" (0..10), 
+Puntaje obtenido por una encuesta telefónica (0..10). La lectura finaliza cuando se
+lee la ciudad "Balcarce", la cual se procesa.
+Informar:
+
+a. Nombre de "La mejor ciudad para visitar", obtenida a partir de promediar los puntajes 
+de la revista "El viajero" y de la encuesta.
+b. Cantidad de ciudades cuya cantidad de habitantes tiene exactamente 2 dígitos pares.
+
+Nota: Utilizar REGISTROS. Modularizar adecuadamente.
+}
+
+program p2y3;
+const
+    FIN='Balcarce';
+type
+    rango=0..10;
+    cadena20=string[20];
+    
+    ciudad= record
+                nombre:cadena20; //corte de control
+                cantH:integer;
+                puntajeR:rango;
+                puntajeE:rango;
+            end;
+//PROCESOS
+procedure LeerCiudad(var c:ciudad);
+begin
+    writeln('Ingrese el nombre');
+    readln(c.nombre);
+    writeln('Ingrese la cantidad de habitantes');
+    readln(c.cantH);
+    writeln('Ingrese el puntaje de la revista');
+    readln(c.puntajeR);
+    writeln('Ingrese el puntaje de la encuesta');
+    readln(c.puntajeE);
+end;
+
+procedure Maximo (var max:real; var nomMax:cadena20;aux:real; nom:cadena20);
+begin
+    if ( max < aux)then
+    begin
+        max:=aux;
+        nomMax:=nom;
+    end;
+end;
+function Cumple (num:integer):boolean;
+var 
+    cant:integer;
+begin
+    cant:=0;
+    while ( (num <> 0) and (cant <=2) ) do
+    begin
+        if ( (num mod 2) = 0 ) then cant:=cant+1;
+        num:=num div 10;
+    end;
+    if  (cant = 2) then Cumple:=true
+                   else Cumple:=false;
+end;
+procedure ProcesarInformacion (var nomMax:cadena20;var cant:integer);
+var
+    c:ciudad;
+    aux,max:real;
+begin
+    nomMax:=' '; cant:=0; max:=-1;
+    repeat
+        LeerCiudad(c);
+        if ( Cumple(c.cantH) ) then cant:=cant+1;
+        aux:= (c.puntajeE+c.puntajeR) div 2;
+        Maximo (max,nomMax,aux,c.nombre);
+    until ( c.nombre = FIN );
+end;
+//PP
+var
+    nomMax:cadena20;
+    cant:integer;
+begin
+    ProcesarInformacion(nomMax,cant);
+    writeln(' Nombre (ciudad) obtenida a partir de promediar los puntajes de la revista "El viajero" y de la encuesta.', nomMax);
+    writeln('Cantidad de ciudades cuya cantidad de habitantes tiene exactamente 2 dígitos pares ', cant);
+end.
