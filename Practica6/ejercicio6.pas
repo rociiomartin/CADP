@@ -77,7 +77,7 @@ begin
     until s.nombre = FIN
 end;
 
-procedure RecorrerListayVector (l:lista; var v:vectorContador; var promeDur:real; var promeCosto:real);
+procedure RecorrerListayVector (l:lista; var v:vectorContador; var promeDur:real; var promeCosto:real;var nomCostoMax:cadena20);
 
     procedure Maximo(costoT:real; nom:cadena20; var max:real; var nomMax:cadena20);
     begin
@@ -94,7 +94,7 @@ procedure RecorrerListayVector (l:lista; var v:vectorContador; var promeDur:real
         for i:=1 to DF do v[i]:=0;
     end;
 var
-    auxCosto,max, costoProme:real; nomCostoMax:cadena20;
+    auxCosto,max, costoProme:real; 
     durProme,cant:integer; 
 begin
     max:=-1; costoProme:=0; durProme:=0;cant:=0;
@@ -109,7 +109,6 @@ begin
         cant:=cant+1;
         l:=l^.sig;
     end;
-    writeln('El nombre de la sonda más costosa es: ', nomCostoMax);
     promeDur:= durProme/cant;
     promeCosto:= costoProme/cant ;
 end;
@@ -121,9 +120,7 @@ begin
     for i:=1 to DF do writeln ('Rango ', i , ' tiene: ', v[i]);
 end;
     
-procedure RecorrerLista(l:lista; promeDur:real; promeCosto:real);
-var 
-    cantD:integer;
+procedure RecorrerLista(l:lista; promeDur:real; promeCosto:real;var cantD:integer);
 begin
     cantD:=0; 
     while ( l<> nil )do
@@ -132,19 +129,22 @@ begin
         if (l^.datos.costoC > promeCosto) then writeln (' El nombre de las sondas cuyo costo de construcción supera el costo promedio entre todas las sonda: ',l^.datos.nombre );
         l:=l^.sig;
     end;
-    writeln(' La cantidad de sondas cuya duración estimada supera la duración promedio de todas las sondas: ', cantD);
 end;
 
 //PP
 var
     l:lista;
     v:vectorContador;
-    promeDur,promeCosto:real;
+    promeDur,promeCosto:real;    
+    nomCostoMax:cadena20;
+    cantD:integer;
 begin
     l:=nil;
     CargarLista(l);
-    RecorrerListayVector(l,v, promeDur, promeCosto);
+    RecorrerListayVector(l,v, promeDur, promeCosto,nomCostoMax);
+    writeln('El nombre de la sonda más costosa es: ', nomCostoMax);
     writeln ('La cantidad de sondas que realizarán estudios en cada rango del espectro electromagnético: ');
     Imprimir(v);
-    RecorrerLista(l,promeDur, promeCosto);
+    RecorrerLista(l,promeDur, promeCosto,cantD);
+    writeln(' La cantidad de sondas cuya duración estimada supera la duración promedio de todas las sondas: ', cantD);
 end.
