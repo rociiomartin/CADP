@@ -67,7 +67,7 @@ begin
     end;
 end;
 
-procedure RecorrerLista(l:lista);
+procedure RecorrerLista(l:lista;var por,cod1,cod2:integer);
 
     function Impares(cod:integer):boolean;
     var
@@ -98,7 +98,7 @@ procedure RecorrerLista(l:lista);
             end;
     end;
 var
-    cantP,cantT,cod1,cod2:integer;
+    cantP,cantT:integer;
     min1,min2:real;
 begin
     cantP:=0; 
@@ -113,16 +113,17 @@ begin
         cantT:=cantT+1;
         l:=l^.sig;
     end;
-    
-    writeln(' Porcentaje de productos con stock actual por debajo de su stock mínimo: ', ( (cantP / cantT)*100):00:00 ,'%');
-    writeln(' Los códigos de los dos productos más económicos: ', cod1, ' ', cod2);
+    por:=(cantP / cantT)*100);
 end;
 
 //PP
 var
     l:lista;
+    por,cod1,cod2:integer;
 begin
     l:=nil;
     CargarLista(l);
-    RecorrerLista(l);
+    RecorrerLista(l,por,cod1,cod2);
+    writeln(' Porcentaje de productos con stock actual por debajo de su stock mínimo: ', por:00:00 ,'%');
+    writeln(' Los códigos de los dos productos más económicos: ', cod1, ' ', cod2);
 end.
