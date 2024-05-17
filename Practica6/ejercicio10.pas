@@ -8,6 +8,15 @@ a. Definir una estructura de datos apropiada para representar la lista de espera
 
 b. Implementar el módulo RecibirCliente, que recibe como parámetro el DNI del cliente y la lista de clientes
 en espera. asigna un número al cliente v retorna la lista de espera actualizada.
+
+c. Implementar el módulo AtenderCliente, que recibe como parámetro la lista de clientes en espera,
+y retorna el número y DNI del cliente a ser atendido y la lista actualizada. El cliente atendido debe
+eliminarse de la lista de espera.
+
+d. Implementar un programa que simule la atención de los clientes. En dicho programa, primero
+llegarán todos los clientes juntos, se les dará un número de espera a cada uno de ellos, y luego se
+los atenderá de a uno por vez. El ingreso de clientes se realiza hasta que se lee el DNI 0, que no
+debe procesarse.
 }
 
 
