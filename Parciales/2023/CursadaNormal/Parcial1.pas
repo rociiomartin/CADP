@@ -111,6 +111,8 @@ begin
     end;
 end;
 }
+procedure CargarLista(var l:lista);//se dispone
+procedure CargarVector(var v:vectorCiudad); //se dispone
 
 procedure Recorrer(l:lista; v:vectorCiudad;var l2:lista2; var vec:vectorContador);
     procedure InicializarVector(var vec:vectorContador);
@@ -119,34 +121,36 @@ procedure Recorrer(l:lista; v:vectorCiudad;var l2:lista2; var vec:vectorContador
     begin
         for i:=1 to DF2 do v[i]:=0;
     end;
-    procedure AgregarAdelante (var l:lista2; cod,cant:integer);
+    procedure AgregarAdelante (var l:lista2;v:viaje2);
     var
       nuevo:lista2;
     begin
       new (nuevo);
-      nuevo^.datos.cod:= cod;
-      nuevo^.datos.cant:=cant;
+      nuevo^.datos:=v;
       nuevo^.sig:=l; 
       l:=nuevo;
     end;
+    function Promedio(cant,cantT:integer):real;
+    begin
+        Promedio:= cant / cantT;
+    end;
 var 
-    codActual,cant,cantP:integer;
-    promedio:real;
+    cantP:integer;
+    vi:viaje2;
 begin
     InicializarVector(vec); l2:=nil; 
     while ( l <> nil ) do
     begin
-        codActual:=l^.datos.cod; cant:=0; cantP:=0;
-        while( ( l <> nil ) and (codActual = l^.datos.cod) )do
+        vi.cod:=l^.datos.cod; vi.cant:=0; cantP:=0;
+        while( ( l <> nil ) and (vi.cod = l^.datos.cod) )do
         begin
-            cant:=cant+1;
-            cantP:=cant + l^.datos.cantP;
-            vec[l^.datos.mes]:= vec[l^.datos.mes]+ v[l^.datos.codCD];
+            vi.cant:=vi.cant+1;
+            cantP:=cantP + l^.datos.cantP;
+            vec[l^.datos.mes]:= vec[l^.datos.mes]+ (l^.datos.cantP * v[l^.datos.codCD]);
             l:=l^.sig;
         end;
-        AgregarAdelante(l2,codActual,cant);
-        promedio:=cantP / cant;
-        writeln('El promedio de pasajeros del tren ' , codActual, ' entre todos sus viajes es: ', promedio:00:00);
+        AgregarAdelante(l2,vi);
+        writeln('El promedio de pasajeros del tren ' , vi.cod, ' entre todos sus viajes es: ', Promedio(cantP,vi.cant):00);
     end;
 end;
 
