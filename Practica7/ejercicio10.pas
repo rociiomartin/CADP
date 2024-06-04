@@ -1,6 +1,4 @@
 {
-NO ESTA TERMINADO
-
 Una compañía de venta de insumos agrícolas desea procesar la información de las empresas a las que
 les provee sus productos. De cada empresa se conoce su código, nombre, si es estatal o privada,
 nombre de la ciudad donde está radicada y los cultivos que realiza (a lo sumo 20). Para cada cultivo
