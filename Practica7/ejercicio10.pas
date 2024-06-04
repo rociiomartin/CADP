@@ -43,7 +43,7 @@ type
     empresa=record
                 cod:integer; //corte de control
                 nombre:candena15;
-                EoP:candena15;
+                EoP:boolean;
                 ciudad:candena30;
                 cultivos: vectorCultivos; //a lo sumo 20
                 diml:rango;
@@ -123,14 +123,12 @@ begin
     end;
 end;
 
+function Porcentaje (cantS,cantTHectareas:integer):integer;
+begin
+    Porcentaje:= (cantS / cantTHectareas )*100;
+end;
 
-c.La cantidad de hectáreas dedicadas al cultivo de soja y qué porcentaje representa con respecto
-al total de hectáreas.
-d. La empresa que dedica más tiempo al cultivo de maíz
-e. Realizar un módulo que incremente en un mes los tiempos de cultivos de girasol de menos de 5
-hectáreas de todas las empresas que no son estatales.
-
-procedure Recorrer (l:lista);
+procedure Recorrer (l:lista; var cantS,cantTHectareas:integer;var empMax:cadena15);
     function Cero(cod:integer):boolean;
     begin
         cant:=0;
@@ -141,35 +139,70 @@ procedure Recorrer (l:lista);
         end;
         Cero:= cant >=2;
     end;
-    function Cumple (v:vectorCultivos; diml:integer):boolean;
-    var
-        ok:boolean;
-        i:=rango;
+    procedure Maximo(tiempo:integer; nombre:cadena15; var max:integer; var empMax:cadena15);
     begin
-        ok:=false; i:=1;
-        while ( (diml >= i) and (not ok) ) do
+        if ( max < tiempo) then
         begin
-            if ( v[i].tipo = 'trigo' ) then ok:=true
-                                       else i:=i+1;
+            max:=tiempo;
+            empMax:=nombre;
         end;
-        Cumple:=ok;
     end;
 var
-
+    max:integer;
 begin
+    cantS:=0; cantT:=0; max:=-1;
     while ( l <> nil )do
     begin
-        if ( (l^.datos.ciudad = NOM) and (Cumple (l^.datos.cultivos, l^.datos.diml)) and (Cero (l^.datos.cod)) ) 
-        then writeln (' Nombres de las empresas radicadas en “San Miguel del Monte” que cultivan trigo y cuyo código
-de empresa posee al menos dos ceros: ', l^.datos.nombre);
+        for i:= 1 to l^.datos.diml do
+        begin
+            if ( l^.datos.cultivos[i].tipo = 'trigo')then
+              if( (l^.datos.ciudad = NOM) and (Cero (l^.datos.cod)) ) then writeln (' Nombres de las empresas radicadas en'
+            ' “San Miguel del Monte” que cultivan trigo y cuyo código de empresa posee al menos dos ceros: ', l^.datos.nombre);
+              else
+               if (l^.datos.cultivos[i].tipo = 'soja')then cantS:=cantS+ l^.datos.cultivos[i].cantH
+               else
+                  if (l^.datos.cultivos[i].tipo = 'maiz')then Maximo(l^.datos.cultivos[i].cantMeses,l^.datos.nombre,max,empMax);
+                      
+            cantTHectareas:=cantTHectareas+l^.datos.cultivos[i].cantH;
+        end;
         l:=l^.sig;
     end;
 end;
 
+procedure IncisoE(var l:lista);
+var
+    i:rango;
+begin
+    while ( l <> nil )do
+    begin
+        if not(l^.datos.EoP) then 
+        begin
+            i:=1; ok:=true;
+            while ( (l^.datos.diml > i) and (ok)) do
+            begin
+                 if ( (l^.datos.cultivos[i].tipo = 'maiz') and (l^.datos.cultivos[i].cantH < 5) )then
+                 begin
+                     ok:=false;
+                     l^.datos.cultivos[i].cantMeses:=l^.datos.cultivos[i].cantMeses+30;
+                 end
+                 else i:=i+1;
+            end;
+        end
+        else
+            l:=l^.sig;
+    end;
+end;
 //PP
 var
     l:lista;
+    cantS,cantTHectareas:integer;
+    empMax:cadena15;
 begin
+    l:=nil;
     CargarLista(l);
-    Recorrer(l);
+    Recorrer(l,cantS,cantTHectareas,empMax);
+    writeln ('La cantidad de hectáreas dedicadas al cultivo de soja: ', cantS);
+    writeln('El porcentaje representa con respecto al total de hectáreas, la soja es: ', Porcentaje(cantS,cantTHectareas) , '%');
+    writeln ('La empresa que dedica más tiempo al cultivo de maíz es: ', empMax);
+    IncisoE(l);
 end.
