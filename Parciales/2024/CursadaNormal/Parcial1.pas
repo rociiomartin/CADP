@@ -4,8 +4,8 @@
 
 program parcial;
 const
-    DF=2;
-    UNO=2;
+    DF=130;
+    UNO=100;
 type
     rango=1..DF;
     cadena15=string[15];
@@ -31,7 +31,8 @@ type
     vectorPrecios = array [rango] of real;
 
 //PROCESOS
-procedure CargarLista(var l:lista); //se dispone
+{SE DISPONE
+procedure CargarLista(var l:lista); 
     procedure LeerRepuesto(var r:repuesto);
     begin
         with r do 
@@ -77,7 +78,7 @@ begin
         LeerRepuesto(r);
     end;
 end;
-{}
+}
 
 procedure CargarVector(var v:vectorMarcas);
     procedure LeerMarca(var m:marca);
@@ -159,12 +160,8 @@ var
     cantP,cantR:integer;
     vec:vectorPrecios;
 begin
-    writeln('CARGANDO LA LISTA');
     CargarLista(l); //se dispone
-    writeln('-------------------');
-    writeln('CARGANDO EL VECTOR');
     CargarVector(v);
-    writeln('-------------------');
     Recorrer(l,vec,cantP,cantR);
     writeln('La cantidad de paises a los que se le compro mas de 100 repuestos: ', cantP);
     InformarMinimos(vec,v);
