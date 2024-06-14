@@ -29,8 +29,8 @@ procedure CargarLista(var l:lista); //se dispone
 
 procedure LeerMarca(var cod:integer;var nombre:cadena15);
 begin
-   readln(cod);
-   readln(nombre);  
+    readln(cod);
+    readln(nombre);  
 end;
 procedure CargarVector(var v:vectorMarcas);
 var
@@ -45,30 +45,34 @@ begin
     end;
 end;
 
-function Cumple(cod:integer):boolean;
+function SinCeros (cod:integer):boolean;
 var
    dig:integer;
+   stop:boolean;
 begin
-        while ( cod <> 0)do
-        begin
-            dig:= cod mod 10;
-            if ( dig = 0 )then Cumple:=false
-                                else cod:=cod div 10;
-        end;
-    end;
-    procedure InicializarVector(var vec:vectorPrecios);
-    var
-        i:rango;
+	stop:=false;
+    while( ( cod <> 0) and (not stop) )do
     begin
-        for i:= 1 to DF do vec[i]:=9999;
-end;
-function EsMinimo(precio,min:real):boolean;
- begin
-        if ( precio < min)then EsMinimo:=true
-                          else EsMinimo:=false;
+        dig:= cod mod 10;
+	    cod:=cod div 10;
+        if ( dig = 0 )then stop:=true;
+    end;
+	Sinceros:= not stop;
 end;
 
-procedure Recorrer(l:lista;var vec:vectorPrecios;var cantMas100,cantSinCeros:integer);
+procedure InicializarVector(var vec:vectorPrecios);
+var
+  i:rango;
+begin
+    for i:= 1 to DF do vec[i]:=9999;
+end;
+
+procedure actualizarMinimo(var minimo:real;nuevoValor:real);
+begin
+    if ( nuevoValor < minimo) then minimo:=nuevoValor;
+end;
+
+procedure Recorrer(l:lista; var vec:vectorPrecios;var cantMas100,cantSinCeros:integer);
 var
     actualPais:cadena15; 
     repuestosPorPais:integer;
@@ -83,11 +87,11 @@ begin
         while ( ( l <> nil) and (actualPais = l^.datos.nomP) )do
         begin
             repuestosPorPais:=repuestosPorPais+1;
-            if ( EsMinimo(l^.datos.precio,vec[l^.datos.codM]) )then vec[l^.datos.codM]:= l^.datos.precio;
-            if ( Cumple ( l^.datos.cod) )then cantSinCeros:=cantSinCeros+1;
+            actualizarMinimo(vec[l^.datos.codM],l^.datos.precio);
+            if ( SinCeros ( l^.datos.cod) )then cantSinCeros:=cantSinCeros+1;
             l:=l^.sig;
         end;
-        if ( cant > UNO)then cantMas100:=cantMas100+1;
+        if ( repuestosPorPais > 100 )then cantMas100:= cantMas100+1;
     end;
 end;
 
@@ -98,7 +102,7 @@ begin
     for i:= 1 to DF do  writeln('Para la marca ', v[i], ' el precio mas barato fue ', vec[i]);
 end;
 
-//PP
+
 var
     l:lista;
     v:vectorMarcas;
@@ -107,8 +111,8 @@ var
 begin
     CargarLista(l); //se dispone
     CargarVector(v);
-    Recorrer(l,vec,cantP,cantR);
+    Recorrer(l,vec,cantMas100,cantSinCeros);
     writeln('La cantidad de paises a los que se le compro mas de 100 repuestos: ', cantMas100);
     InformarMinimos(vec,v);
-    writeln('La cantidad de repuestos que no poseen ningun cero en su codigo: ',cantSinCeros);
+    writeln('La cantidad de repuestos que no poseen ningun cero en su codigo: ', cantSinCeros);
 end.
