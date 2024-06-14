@@ -79,6 +79,7 @@ procedure CargarLista(var l:lista);
 var
     r:repuesto;
 begin
+    l:=nil;
     LeerRepuesto(r);
     while ( r.cod <> FIN )do
     begin
@@ -89,17 +90,16 @@ end;
 
 
 procedure Recorrer(l:lista; var v:vectorCantRepuestos; var vec:vectorPrecios;var canTotal,cantAL3Ceros:integer);
-    procedure InicializarVectorContador(var v:vectorCantRepuestos);
+    procedure InicializarDatos(var v:vectorCantRepuestos; var vec:vectorPrecios; var cantAL3Ceros:integer);
     var
       i:rango;
     begin
-        for i:= 1 to DF do v[i]:=0;
-    end;
-    procedure InicializarVector(var vec:vectorPrecios);
-    var
-      i:rango;
-    begin
-        for i:= 1 to DF do vec[i]:=-1;
+        for i:= 1 to DF do 
+        begin
+            v[i]:=0;
+            vec[i]:=-1;
+        end;
+        cantAL3Ceros:=0;
     end;
     procedure actualizarMaximo(var maximo:real;nuevoValor:real);
     begin
@@ -119,9 +119,7 @@ procedure Recorrer(l:lista; var v:vectorCantRepuestos; var vec:vectorPrecios;var
     end;
 begin
     canTotal:=0;
-    cantAL3Ceros:=0;
-    InicializarVector(vec);
-    InicializarVectorContador(v);
+    InicializarDatos(v,vec,cantAL3Ceros);
     while ( l <> nil) do
     begin
         canTotal=canTotal+1;
