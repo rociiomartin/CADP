@@ -21,13 +21,14 @@ type
             sig: lista;
           end;
       
-    vectorPaises = array [rango] of string;
+    vectorPaises = array [rango] of string; //se dispone
     
     vectorPrecios = array [rango] of real;
     
     vectorCantRepuestos = array [rango] of integer;
 
 //PROCESOS Y FUNCIONES
+{SE DISPONE
 procedure CargarVector(var v:vectorPaises);
     procedure LeerPais(var cod:integer;var nombre:cadena15);
     begin
@@ -47,6 +48,8 @@ begin
         v[cod]:=nombre;
     end;
 end;
+}
+procedure CargarVector(var v:vectorPaises); //se dispone
 
 procedure CargarLista(var l:lista); 
     procedure LeerRepuesto(var r:repuesto);
@@ -141,9 +144,9 @@ var
     l:lista;
     v:vectorPaises;
     vec:vectorPrecios;
-    cantAL3Ceros
+    cantAL3Ceros:integer;
 begin
-    CargarVector(v);
+    CargarVector(v); //se dispone
     CargarLista(l);
     Recorrer(l,vec,cantAL3Ceros);
     writeln(' ');
