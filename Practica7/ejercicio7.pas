@@ -49,7 +49,8 @@ type
            end;
 //PROCESOS
 procedure CargarLista(var l : lista);
-    procedure InsertarVector(var v:vectorNotas;diml:integer;n:integer);
+    {LO HACE A MEDIDA QUE ENTRAN LOS DATOS
+    procedure InsertarVectorDescendente(var v:vectorNotas;diml:integer;n:integer);
     var 
         i,j:rango;
         ok:boolean;
@@ -63,6 +64,22 @@ procedure CargarLista(var l : lista);
         end;
         for j:=diml downto i do v[j]:=v[j-1];
         v[i]:=n;
+    end;}
+    procedure OrdenarDescendente(var v:vectorNotas;diml:integer); //LO HACE UNA VEZ QUE ESTA CARGADO
+    var
+        i,j:rango;
+        aux:integer;
+    begin
+        for j:= 1 to diml do
+            for i:= diml downto 2 do
+            begin
+                if ( v[i] > v[i-1])then
+                begin
+                    aux:=v[i-1];
+                    v[i-1]:= v[i];
+                    v[i]:=aux;
+                end;
+            end;
     end;
     procedure CargarVector(var v:vectorNotas;var diml:integer);
     var 
@@ -77,9 +94,11 @@ procedure CargarLista(var l : lista);
             if (nota >= 4)then
             begin
                 diml:=diml+1;
-                InsertarVector(v,diml,nota);
+                //InsertarVectorDescendente(v,diml,n);
+                v[diml]:=nota;
             end;
         end;
+        OrdenarDescendente(v,diml);
     end;
     procedure LeerAlumno(var a:alumno);
     begin
@@ -162,7 +181,7 @@ begin
     min1:=999; min2:=999;
     while ( l <> nil)do
     begin
-        writeln(' El promedio del alumno', l^.datos.num, ' es: ', Promedio(l^.datos.notas,l^.datos.diml) );
+        writeln(' El promedio del alumno ', l^.datos.num, ' es: ', Promedio(l^.datos.notas,l^.datos.diml) );
         if ( (l^.datos.anioI = 2012) and (Cumple (l^.datos.num)) )then cant:=cant+1;
         aux:=l^.datos.anioE - l^.datos.anioI;
         Minimo (min1,min2,ape1,ape2,nom1,nom2,dire1,dire2,aux,l^.datos.nom,l^.datos.ape,l^.datos.dire);
@@ -179,5 +198,5 @@ begin
     CargarLista(l);
     RecorrerLista(l,cant,ape1,ape2,nom1,nom2,dire1,dire2);
     writeln ('La cantidad de alumnos ingresantes 2012 cuyo número de alumno está compuesto únicamente por dígitos impares es: ', cant);
-    writeln('El apellido, nombres y dirección de correo electrónico de los dos alumnos que más rápido se recibieron son', ape1,ape2,nom1,nom2,dire1,dire2);
+    writeln('El apellido, nombres y dirección de correo electrónico de los dos alumnos que más rápido se recibieron son ', ape1,nom1,dire1,ape2,nom2,dire2);
 end.
