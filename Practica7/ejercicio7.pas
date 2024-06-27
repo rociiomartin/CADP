@@ -134,7 +134,8 @@ procedure CargarLista(var l : lista);
     end;
 var
    a:alumno;
-begin
+begin    
+    l:=nil;
     LeerAlumno(a);
     while ( a.num <> FIN )do 
     begin
