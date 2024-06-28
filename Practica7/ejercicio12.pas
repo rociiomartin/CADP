@@ -50,7 +50,7 @@ type
          end;
 
 //PROCESOS Y FUNCIONES
-{SE DISPONE}
+{SE DISPONE
 procedure CargarVectorPrecios(var v:vectorPrecios);
 var 
     i:rango;
@@ -63,7 +63,7 @@ begin
         v[i]:=precio;
     end;
 end;
-//}
+}
 
 procedure CargarLista(var l : lista);
     procedure LeerCliente(var c:cliente);
