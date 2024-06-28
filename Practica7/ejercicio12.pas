@@ -64,6 +64,7 @@ begin
     end;
 end;
 }
+procedure CargarVectorPrecios(var v:vectorPrecios);//se dispone
 
 procedure CargarLista(var l : lista);
     procedure LeerCliente(var c:cliente);
