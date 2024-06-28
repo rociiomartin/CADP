@@ -46,7 +46,7 @@ type
     lista2 = ^nodo2;
     nodo2 = record
             datos:nuevo;
-            sig:lista;
+            sig:lista2;
          end;
 
 //PROCESOS Y FUNCIONES
