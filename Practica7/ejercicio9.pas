@@ -62,7 +62,7 @@ procedure CargarLista(var l:lista);
             writeln('------------------------------------------------');
         end;
     end;
-    procedure InsertarOrdenado(var l: lista; p:pelicula);
+    {procedure InsertarOrdenado(var l: lista; p:pelicula);
     var
         aux,ant,act:lista;
     begin
@@ -78,7 +78,7 @@ procedure CargarLista(var l:lista);
         if act = l then l:=aux
                    else ant^.sig:=aux;
         aux^.sig:=act;
-    end;
+    end;}
 var
    p:pelicula;
 begin
@@ -87,7 +87,7 @@ begin
     LeerPeliculas(p);
     while ( p.cod <> FIN )do
     begin
-        InsertarOrdenado(l,p);
+        //InsertarOrdenado(l,p);
         LeerPeliculas(p);
     end;
 end;
@@ -107,32 +107,7 @@ end;
             writeln('------------------------------------------------');
         end;
     end;
-a) Actualizar (en la lista que se dispone) el puntaje promedio otorgado por las críticas. Para ello se
-debe leer desde teclado las críticas que han realizado críticos de cine, de cada crítica se lee: DNI
-del crítico, apellido y nombre del crítico, código de película y el puntaje otorgado. La lectura
-finaliza cuando se lee el código de película -1 y la información viene ordenada por código de
-película.
-b) Informar el código de género que más puntaje obtuvo entre todas las críticas.
-c) Informar el apellido y nombre de aquellos críticos que posean la misma cantidad de dígitos pares
-que impares en su DNI.
-d) Realizar un módulo que elimine de la lista que se dispone una película cuyo código se recibe
-como parámetro (el mismo puede no existir).
 
-procedure Actualizar(var l:lista);
-
-var
-
-begin
-    while ( l <> nil ) do 
-    begin
-        codActual:= l^.datos.cod;
-        while( ( l <> nil ) and (codActual = l^.datos.cod) )do 
-        begin
-            l:=l^.sig;
-        end;
-        
-    end;
-end;
 //pp
 var
     l:lista;
