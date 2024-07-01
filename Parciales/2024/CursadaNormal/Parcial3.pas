@@ -1,5 +1,5 @@
 {
-TEMA 1 - CADP 2024 - 29/6/2024
+TEMA 2 - CADP 2024 - 29/6/2024
 Un supermercado está procesando las compras que realizaron sus clientes. Para ello, dispone de una estructura de datos con todas las compras realizadas, sin ningún orden en particular. De cada compra se conoce: código, año (entre 1980 y 2024), monto y DNI del cliente. Un cliente puede haber realizado más de una compra.
 Realizar un programa procese la información de las compras y:
 a. Almacene en otra estructura de datos las compras realizadas entre los años 2010 y 2020. Esta estructura debe quedar ordenada por el DNI del cliente.
