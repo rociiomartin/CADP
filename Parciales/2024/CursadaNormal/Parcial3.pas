@@ -1,11 +1,20 @@
 {
-TEMA 2
+TEMA 2 - CADP 2024 - 29/6/2024
+Un supermercado está procesando las compras que realizaron sus clientes. Para ello, dispone de una estructura de datos con todas las compras realizadas, sin ningún orden en particular. De cada compra se conoce: código, año (entre 1980 y 2024), monto y DNI del cliente. Un cliente puede haber realizado más de una compra.
+Realizar un programa procese la información de las compras y:
+a. Almacene en otra estructura de datos las compras realizadas entre los años 2010 y 2020. Esta estructura debe quedar ordenada por el DNI del cliente.
+b. Una vez almacenada la estructura del inciso a, procesar estos datos e informar:
+1. El año con menor facturación.
+2. Los dos DNI de los clientes que realizaron mayor cantidad de compras.
+3. COMPLETO: El monto total facturado de compras con código múltiplo de 10.
 }
 
 program ejercicio3;
+const 
+    DF=2020;
 type
     rango=1980..2024;
-    rango2=2010..2020;
+    rango2=2010..DF;
   
     compra= record
             cod:integer;
@@ -75,7 +84,7 @@ procedure CargarLista2(l:lista;var l2:lista);
         while (act<>nil) and (act^.datos.dni < aux^.datos.dni) do
         begin
             ant:=act;
-            act:=l^.sig;
+            act:=act^.sig;
         end;
         if act = l then l:=aux
                    else ant^.sig:=aux;
@@ -95,7 +104,7 @@ procedure RecorrerLista(l:lista;var vec:vectorAnios;var dni1,dni2:integer;var mo
     var
         i:rango2;
     begin
-        for i:=2010 to 2020 do vec[i]:=0.0;
+        for i:=2010 to DF do vec[i]:=0.0;
         max1:=-1;
         max2:=-1;
         montoT:=0.0;
@@ -153,7 +162,7 @@ var
     min:real;
 begin
     min:=999.9;
-    for i:=2010 to 2020 do Minimo(min,anioMin,vec[i],i);
+    for i:=2010 to DF do Minimo(min,anioMin,vec[i],i);
 end;
 
 //PP
@@ -172,4 +181,3 @@ begin
     ObtenerMinimo(vec,anioMin);
     writeln('El anño con menor facturacion fue: ', anioMin);
 end.
-
