@@ -15,3 +15,114 @@ b. La cantidad de alumnos que gastan en transporte más de $80 por día.
 c. Los dos medios de transporte más utilizados.
 d. La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte.
 }
+
+program Hello;
+
+const
+    DF = 31;      
+    DAlu = 1300;   
+    DMed = 5;      
+    FIN=-1;
+type
+    rangoAlumno = 1..DAlu;
+    rangoDia    = 1..DF;
+    rangoMedio  = 1..DMed;
+    cadena30 = string[30];
+    
+    viaje = record
+        codAlumno : rangoAlumno;
+        dia       : rangoDia;
+        facultad  : cadena30;
+        medio     : rangoMedio;  
+    end;
+    
+    nodoLista = record
+        dia       : rangoDia;
+        facultad  : cadena30;
+        medio     : rangoMedio;  
+    end;
+
+    { tabla con precios de cada medio de transporte }
+    tablaPrecios = array [rangoMedio] of real; 
+
+    { para almacenar los viajes (se puede manejar como lista o vector dinámico) }
+    listaViajes = ^nodo;
+    nodo = record
+        dato : nodoLista;
+        sig  : listaViajes;
+    end;
+    
+    vectorListas = array [rangoAlumno] of listaViajes;
+//MODULOS
+procedure LeerViaje(var v: viaje);
+begin
+    writeln('Ingrese codigo de alumno (-1 para finalizar): ');
+    readln(v.codAlumno);
+    if (v.codAlumno <> FIN) then
+    begin
+        writeln('Ingrese dia del mes (1..31): ');
+        readln(v.dia);
+        writeln('Ingrese facultad: ');
+        readln(v.facultad);
+        writeln('Ingrese medio de transporte (1..5): ');
+        readln(v.medio);
+    end;
+end;
+
+procedure InicializarVector(var v: vectorListas);
+var
+    i: rangoAlumno;
+begin
+    for i := 1 to DAlu do
+        v[i] := nil;
+end;
+
+procedure AgregarAdelante(var L: listaViajes; n: nodoLista);
+var
+    nue: listaViajes;
+begin
+    new(nue);
+    nue^.dato := n;
+    nue^.sig := L;
+    L := nue;
+end;
+
+procedure CargarVectorListas(var VL: vectorListas);
+var
+    vi: viaje;
+    n:nodoLista;
+begin
+    InicializarVector(VL);
+    LeerViaje(vi);
+    while (vi.codAlumno <> -1) do
+    begin
+        
+        n.dia:=vi.dia;
+        n.facultad:=vi.facultad; {cargo el nuevo registro}
+        n.medio:=vi.medio;
+        
+        AgregarAdelante(VL[vi.codAlumno], n);
+        LeerViaje(vi);
+    end;
+end;
+
+procedure CargarTabla(var v:tablaPrecios); {SE DISPONE}
+var
+    i:rangoMedio;
+    precio:real;
+begin
+    for i:= 1 to DMed do
+    begin
+        readln(precio);
+        v[i]:=precio;
+    end;
+end;
+
+//PROGRAMA PRINCIPAL
+var
+    v:vectorListas;
+    t:tablaPrecios;
+begin
+    CargarVectorListas(v);
+    CargarTabla(t); //se dispone
+end.
