@@ -11,7 +11,7 @@ la lectura finaliza al leer un centro con 0 investigadores, que no debe procesar
 
 program ejercicio7;
 const 
- FIN=0; MAX =-1; MIN=9999;
+ FIN=0; 
 type
   cadena6=string[6];
   cadena20=string[20];
@@ -69,7 +69,7 @@ var
   centro1,centro2:cadena6;
   cantUni,maxInves, max,minBec1, minBec2:integer;
 begin
-    max:=MAX; minBec1:= MIN; minBec2:= MIN;centro1:=''; centro2:='';
+    max:=-1; minBec1:= 9999; minBec2:= 9999;centro1:=''; centro2:='';
     LeerCentro(c);
     while(c.cantI <> FIN) do
     begin
