@@ -22,10 +22,9 @@ type
             cantB:integer;
            end;
 //PROCESOS
-Procedure Informar();
 
-        Procedure LeerCentro(var c:centro);
-        begin
+Procedure LeerCentro(var c:centro);
+begin
             writeln('Ingrese la cantidad de investigadores que posee  -FINALIZA SI INGRESA 0-');
             readln(c.cantI);
             if(c.cantI <> FIN) then
@@ -37,17 +36,17 @@ Procedure Informar();
                 writeln('Ingrese un cantidad de becarios que posee');
                 readln(c.cantB);
             end;
-        end;
-        Procedure Maximo (maxInves:integer; uni:cadena20; var maxUni:cadena20; var max:integer);
-        begin
+end;
+Procedure Maximo (maxInves:integer; uni:cadena20; var maxUni:cadena20; var max:integer);
+begin
             if(max < maxInves) then
             begin
                 max:= maxInves;
                 maxUni:=uni
             end;
-        end;
-        Procedure Minimo (var minBec1, minBec2:integer; var centro1,centro2: cadena6; cantB:integer; centro: cadena6);
-        begin
+end;
+Procedure Minimo (var minBec1, minBec2:integer; var centro1,centro2: cadena6; cantB:integer; centro: cadena6);
+begin
             if(minBec1 > cantB) then
             begin
                 minBec2:=minBec1;
@@ -61,8 +60,8 @@ Procedure Informar();
                 minBec2:=cantB;
                 centro2:=centro;
               end;
-        end;
-
+end;
+procedure Procesar();
 var 
   c:centro;
   Uniactual,maxUni:cadena20;
@@ -93,5 +92,5 @@ end;
 //PROGRAMA PRINCIPAL
 
 begin
-   Informar();
+   Procesar();
 end.
