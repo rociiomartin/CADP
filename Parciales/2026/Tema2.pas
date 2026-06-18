@@ -1,3 +1,16 @@
+{
+CADP 2026 - Parcial 1 - Fecha 1 - 13-06-2025 - Tema 2
+
+La Universidad de Buenos Aires (UBA) dispone de información de todos sus alumnos. De cada alumno posee el DNI, nombre de la carrera que estudia, año de ingreso y nota promedio que posee. La información se encuentra ordenada por nombre de carrera. Realizar un módulo que procese la información que se dispone y retorne: 
+
+1. Una nueva estructura que tenga para cada carrera, el nombre de la carrera, la cantidad de alumnos y el DNI del alumno con promedio más alto de la carrera. 
+
+2. La cantidad de alumnos de la UBA por año de ingreso, considerando los años entre 2005 y 2025 inclusive. 
+
+3. El DNI del alumno con promedio más alto de toda la UBA. Implementar el programa principal que invoque a dicho módulo e imprima la información retornada por este. 
+
+Nota: la estructura que se dispone se debe recorrer una vez. 
+}
 program ParcialCADP;
 
 const
