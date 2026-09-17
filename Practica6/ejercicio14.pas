@@ -15,14 +15,13 @@ b. La cantidad de alumnos que gastan en transporte más de $80 por día.
 c. Los dos medios de transporte más utilizados.
 d. La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte.
 }
-
-program ejer14;
+program Hello;
 
 const
     DF = 31;      
     DAlu = 1300;   
     DMed = 5;      
-    FIN= 0;
+    FIN= -1;
 type
     rangoAlumno = 1..DAlu;
     rangoDia    = 1..DF;
@@ -30,7 +29,7 @@ type
     cadena30 = string[30];
     
     viaje = record
-        codAlumno : rangoAlumno;
+        codAlumno : integer; //rangoAlumno
         dia       : rangoDia;
         facultad  : cadena30;
         medio     : rangoMedio;  
@@ -106,9 +105,10 @@ var
     i:rangoMedio;
     precio:real;
 begin
+    writeln ('Ingrese los precios');
     for i:= 1 to DMed do
     begin
-        readln(precio);
+        read(precio);
         v[i]:=precio;
     end;
 end;
@@ -167,7 +167,7 @@ begin
     end;
 end;
 
-procedure RecorrerLista (l:listaViajes; t: tablaPrecios; var v:vectorMedios; var cantD,cantG,cantB:integer);
+procedure RecorrerLista (l:listaViajes; t: tablaPrecios; var v:vectorMedios;var cantD,cantG,cantB:integer);
 var
     aluAct:rangoAlumno;
     ve:vectorDias;
@@ -182,6 +182,7 @@ begin
             ve[l^.dato.dia].cant:=ve[l^.dato.dia].cant+1;
             ve[l^.dato.dia].monto:=ve[l^.dato.dia].monto + t[l^.dato.medio];
             v[l^.dato.medio]:=v[l^.dato.medio]+1;
+            l:=l^.sig;
         end;
         RecorrerVector(ve,cantD,cantG);
         if (v[5] <> 0) and ( (v[1] <> 0) or (v[2] <> 0) or (v[3] <> 0) or (v[4] <> 0))then cantB:=cantB+1;
@@ -196,14 +197,14 @@ var
     v:vectorMedios;
     m1,m2:rangoMedio;
 begin
-    l:=nil;
+    l:=nil; m1:=-1;
     CargarLista(l);
     CargarTabla(t); //se dispone
     InicializarVectorMedio(v);
     RecorrerLista (l,t,v,cantD,cantG,cantB);
-    writeln( 'La cantidad de alumnos que realizan más de 6 viajes por día', cantD);
-    writeln ( 'La cantidad de alumnos que gastan en transporte más de $80 por día', cantG);
+    writeln( 'La cantidad de alumnos que realizan más de 6 viajes por día ', cantD);
+    writeln ( 'La cantidad de alumnos que gastan en transporte más de $80 por día ', cantG);
     Maximos (v, m1,m2);
-    writeln ('Los dos medios de transporte más utilizados', m1,' ',m2);
-    writeln ( 'La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte', cantB);
+    writeln ('Los dos medios de transporte más utilizados ', m1,' y ',m2);
+    writeln ( 'La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte ', cantB);
 end.
