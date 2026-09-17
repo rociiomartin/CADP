@@ -16,13 +16,13 @@ c. Los dos medios de transporte más utilizados.
 d. La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte.
 }
 
-program Hello;
+program ejer14;
 
 const
     DF = 31;      
     DAlu = 1300;   
     DMed = 5;      
-    FIN=-1;
+    FIN= 0;
 type
     rangoAlumno = 1..DAlu;
     rangoDia    = 1..DF;
@@ -36,23 +36,23 @@ type
         medio     : rangoMedio;  
     end;
     
-    nodoLista = record
-        dia       : rangoDia;
-        facultad  : cadena30;
-        medio     : rangoMedio;  
-    end;
-
     { tabla con precios de cada medio de transporte }
     tablaPrecios = array [rangoMedio] of real; 
 
     { para almacenar los viajes (se puede manejar como lista o vector dinámico) }
     listaViajes = ^nodo;
     nodo = record
-        dato : nodoLista;
+        dato : viaje;
         sig  : listaViajes;
     end;
     
-    vectorListas = array [rangoAlumno] of listaViajes;
+    registro = record
+        cant:integer;
+        monto:real;
+    end;
+    
+    vectorDias = array [rangoDia] of registro;
+    vectorMedios = array [rangoMedio] of integer;
 //MODULOS
 procedure LeerViaje(var v: viaje);
 begin
@@ -69,40 +69,35 @@ begin
     end;
 end;
 
-procedure InicializarVector(var v: vectorListas);
+procedure InsertarOrdenado(var L:listaViajes; v:viaje);
 var
-    i: rangoAlumno;
+    nue, act, ant: listaViajes;
 begin
-    for i := 1 to DAlu do
-        v[i] := nil;
-end;
-
-procedure AgregarAdelante(var L: listaViajes; n: nodoLista);
-var
-    nue: listaViajes;
-begin
-    new(nue);
-    nue^.dato := n;
-    nue^.sig := L;
-    L := nue;
-end;
-
-procedure CargarVectorListas(var VL: vectorListas);
-var
-    vi: viaje;
-    n:nodoLista;
-begin
-    InicializarVector(VL);
-    LeerViaje(vi);
-    while (vi.codAlumno <> -1) do
+    new (nue); 
+    nue^.dato := v; 
+    act := L; 
+    ant := L;
+    while( act <> nil)and(v.codAlumno > act^.dato.codAlumno)do 
     begin
-        
-        n.dia:=vi.dia;
-        n.facultad:=vi.facultad; {cargo el nuevo registro}
-        n.medio:=vi.medio;
-        
-        AgregarAdelante(VL[vi.codAlumno], n);
-        LeerViaje(vi);
+        ant := act;
+        act:= act^.sig;
+    end;
+    if (act = ant) then 
+        L:= nue
+    else 
+        ant^.sig:= nue;
+    nue^.sig:= act; 
+end;
+
+procedure CargarLista(var l:listaViajes);
+var
+    v: viaje;
+begin
+    LeerViaje(v);
+    while (v.codAlumno <> FIN) do
+    begin
+        InsertarOrdenado(l,v);
+        LeerViaje(v);
     end;
 end;
 
@@ -118,11 +113,97 @@ begin
     end;
 end;
 
+procedure InicializarVector(var v:vectorDias); 
+var
+    i:rangoDia;
+begin
+    for i:= 1 to DF do
+    begin
+        v[i].cant:=0;
+        v[i].monto:=0.0;
+    end;
+end;
+
+procedure RecorrerVector(v:vectorDias; var cantD,cantG:integer); 
+var
+    i:rangoDia;
+begin
+    cantD:=0; cantG:=0;
+    for i:= 1 to DF do
+    begin
+        if ( v[i].cant > 6 )then cantD:=cantD+1;
+        if ( v[i].monto > 80 )then cantG:=cantG+1;
+    end;
+end;
+
+procedure InicializarVectorMedio(var v:vectorMedios); 
+var
+    i:rangoMedio;
+begin
+    for i:= 1 to DMed do v[i]:=0;
+end;
+
+procedure Maximos (v:vectorMedios;var m1,m2: rangoMedio);
+var
+    i:rangoMedio;
+    max1,max2:integer;
+begin
+    max1:=-1;
+    for i:=1 to DMed do
+    begin
+        if ( max1 > v[i] )then
+        begin
+            max1:= v[i];
+            m1:= i;
+            max2:= max1;
+            m2:= m1;
+        end
+        else
+          if ( max2 > v[i] )then
+          begin
+            max2:= v[i];
+            m2:= i;
+          end;
+    end;
+end;
+
+procedure RecorrerLista (l:listaViajes; t: tablaPrecios; var v:vectorMedios; var cantD,cantG,cantB:integer);
+var
+    aluAct:rangoAlumno;
+    ve:vectorDias;
+begin
+    cantB:=0;
+    while ( l <> nil)do
+    begin
+        aluAct:=l^.dato.codAlumno;
+        InicializarVector(ve); //inciso A
+        while ( l <> nil) and ( aluAct = l^.dato.codAlumno )do
+        begin
+            ve[l^.dato.dia].cant:=ve[l^.dato.dia].cant+1;
+            ve[l^.dato.dia].monto:=ve[l^.dato.dia].monto + t[l^.dato.medio];
+            v[l^.dato.medio]:=v[l^.dato.medio]+1;
+        end;
+        RecorrerVector(ve,cantD,cantG);
+        if (v[5] <> 0) and ( (v[1] <> 0) or (v[2] <> 0) or (v[3] <> 0) or (v[4] <> 0))then cantB:=cantB+1;
+    end;
+end;
+
 //PROGRAMA PRINCIPAL
 var
-    v:vectorListas;
+    l:listaViajes;
     t:tablaPrecios;
+    cantD,cantG,cantB:integer;
+    v:vectorMedios;
+    m1,m2:rangoMedio;
 begin
-    CargarVectorListas(v);
+    l:=nil;
+    CargarLista(l);
     CargarTabla(t); //se dispone
+    InicializarVectorMedio(v);
+    RecorrerLista (l,t,v,cantD,cantG,cantB);
+    writeln( 'La cantidad de alumnos que realizan más de 6 viajes por día', cantD);
+    writeln ( 'La cantidad de alumnos que gastan en transporte más de $80 por día', cantG);
+    Maximos (v, m1,m2);
+    writeln ('Los dos medios de transporte más utilizados', m1,' ',m2);
+    writeln ( 'La cantidad de alumnos que combinan bicicleta con algún otro medio de transporte', cantB);
 end.
