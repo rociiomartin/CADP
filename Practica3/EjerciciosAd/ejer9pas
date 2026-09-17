@@ -6,3 +6,70 @@ procesarse. Informar:
 ● El intendente que obtuvo la mayor cantidad de votos en la elección. 
 ● El intendente que obtuvo el mayor porcentaje de votos de la elección.  
 }
+program ej9;
+const
+    FIN= 'ZARATE';
+type
+    cadena20= string[20];
+    
+    candidato = record
+        localidad: cadena20;
+        apellido: cadena20;
+        votos: integer;
+        votantes: integer;
+    end;
+
+procedure leerCandidato(var c: candidato);
+begin
+    writeln('Ingrese localidad: ');
+    readln(c.localidad);
+    writeln('Ingrese apellido: ');
+    readln(c.apellido);
+    writeln('Ingrese cantidad de votos: ');
+    readln(c.votos);
+    writeln('Ingrese cantidad de votantes: ');
+    readln(c.votantes);
+end;
+
+
+function porcentaje(votos, votantes:integer): integer;
+begin
+    porcentaje := (votos / votantes) * 100;
+end;
+
+
+procedure actualizarMayor(ape: string; votos:integer; var mayorVotos: integer;var apellidoMayor: cadena20);
+begin
+    if (votos > mayorVotos) then
+    begin
+        mayorVotos := votos;
+        apellidoMayor := ape;
+    end;
+end;
+
+procedure Procesar(var apellidoMayorVotos, apellidoMayorPorcentaje: cadena20);
+var
+    c:candidato;
+    mayorVotos,mayorPorcentaje:integer;
+    aux:integer;
+begin
+    mayorVotos := -1;
+    mayorPorcentaje := -1;
+    repeat
+        leerCandidato(c);
+        actualizarMayor(c.apellido, c.votos, mayorVotos, apellidoMayorVotos); //votos
+        aux:= porcentaje (c.votos, c.votantes);
+        actualizarMayor(c.apellido, aux , mayorPorcentaje, apellidoMayorPorcentaje); //porcentaje
+    until(c.localidad = FIN);
+
+end;
+
+//PROGRAMA PRINCIPAL
+var
+    apellidoMayorVotos, apellidoMayorPorcentaje: cadena20;
+
+begin
+    Procesar(apellidoMayorVotos,apellidoMayorPorcentaje);
+    writeln('El intendente que obtuvo mayor cantidad de votos fue: ', apellidoMayorVotos);
+    writeln('El intendente que obtuvo mayor porcentaje de votos fue: ',apellidoMayorPorcentaje);
+end.
