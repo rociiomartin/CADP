@@ -130,7 +130,7 @@ begin
     max1:=0.0; max2:=0.0; cod1:= -1; cod2:=-1;
     while ( l<> nil ) do
     begin
-        if ( l^.datos.codM > 5) then Maximo(max1,max2,cod1,cod2,l^.datos.cod,l^.datos.costoP);
+        if ( l^.datos.codM < 5) then Maximo(max1,max2,cod1,cod2,l^.datos.cod,l^.datos.costoP);
 
         l:=l^.sig;
     end;
