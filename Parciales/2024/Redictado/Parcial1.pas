@@ -89,12 +89,12 @@ procedure RecorrerVector(v:vector; var l:lista; var cant:integer);
         cant:integer;
     begin
         cant:=0;
-        while ( (cod <> 0) and (cant < 3) )do
+        while ( (cod <> 0) and (cant <= 3) )do
         begin
             if ( (cod mod 2) = 0 ) then cant:=cant+1;
             cod:=cod div 10;
         end;
-        if ( cant = 3) then Cumple:=true
+        if ( cant <= 3) then Cumple:=true
                        else Cumple:=false;
     end;
 var
