@@ -61,7 +61,7 @@ begin
     nuevo^.sig := nil;
 
     actual := l;
-    anterior := nil;
+    anterior :=l;
 
     while (actual <> nil) and
           (actual^.dato.codigo > aux.codigo) do
@@ -70,7 +70,7 @@ begin
         actual := actual^.sig;
     end;
 
-    if (anterior = nil) then
+    if (anterior = actual) then
         l := nuevo;
     else
         anterior^.sig := nuevo;
